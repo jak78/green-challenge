@@ -17,7 +17,7 @@ xpi=$xpcom_name-$version.xpi
 case `uname` in
   Linux)
     (cd components && CXXFLAGS=-DHAVE_LIBGTOP make) || exit 1
-    build_libraries="components/clSystemMonitor.so"
+		build_libraries="components/.libs/clSystemMonitor.so"
     platform_component_directory="Linux_x86-gcc3"
     ;;
   Darwin)
