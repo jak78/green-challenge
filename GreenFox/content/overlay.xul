@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://system-monitor/locale/">
+<overlay id="system-monitor"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <script type="application/x-javascript" src="chrome://system-monitor/content/prefs.js"/>
+  <script type="application/x-javascript" src="chrome://system-monitor/content/system-monitor.js"/>
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="system-monitor-bundle" src="chrome://system-monitor/locale/system-monitor.properties"/>
+  </stringbundleset>
+
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbaritem id="system-monitor-cpu-usage"
+                 class="system-monitor-item"
+                 tooltiptext="&toolbar.cpuUsage.tooltip;"
+                 orient="vertical">
+      <stack>
+        <hbox class="system-monitor-cpu-usage-background"
+              flex="1"/>
+        <image id="system-monitor-cpu-usage-backup" flex="1"/>
+        <html:canvas id="system-monitor-cpu-usage-canvas"
+                     width="48"
+                     height="24"/>
+      </stack>
+      <label class="toolbarbutton-text"
+             value="&toolbar.cpuUsage.label;"/>
+    </toolbaritem>
+  </toolbarpalette>
+
+</overlay>
