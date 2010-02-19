@@ -8,6 +8,13 @@ import java.io.FileOutputStream;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Read an image from the disk, encode it in RLE and save it in a new file (qrc
+ * extension)
+ * 
+ * @author Henri Tremblay
+ * 
+ */
 public class Image2rle {
 
 	public static void main(String[] args) {
@@ -47,6 +54,7 @@ public class Image2rle {
 		System.err.println("Error: " + msg);
 		System.err.println();
 		System.err.println("Usage: " + Image2rle.class.getSimpleName() + " filename");
+		System.err.println("\tThe RLE file will be in the same directory and have the .qrc extension");
 		System.err.println();
 		System.exit(1);
 	}
