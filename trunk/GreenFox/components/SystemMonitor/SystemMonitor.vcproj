@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="shift_jis"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="SystemMonitor"
 	ProjectGUID="{019B2532-0BAC-42B7-AFCA-5ADD400FA60A}"
 	RootNamespace="SystemMonitor"
@@ -13,6 +13,9 @@
 		/>
 	</Platforms>
 	<ToolFiles>
+		<ToolFile
+			RelativePath=".\IDL.rules"
+		/>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
@@ -29,6 +32,9 @@
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
+				Name="IDL compile header"
+			/>
+			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
 			<Tool
@@ -40,11 +46,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="c:\xulrunner\include\dom;c:\xulrunner\include\xpcom;C:\xulrunner\include\caps;C:\xulrunner\sdk\include"
+				AdditionalIncludeDirectories="&quot;c:\xulrunner-sdk-1.9.1.7\include\dom&quot;;&quot;c:\xulrunner-sdk-1.9.1.7\include\xpcom&quot;;&quot;C:\xulrunner-sdk-1.9.1.7\include\caps&quot;;&quot;C:\xulrunner-sdk-1.9.1.7\sdk\include&quot;"
 				PreprocessorDefinitions="XP_WIN"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				TreatWChar_tAsBuiltInType="false"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -60,7 +67,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="xpcomglue_s.lib xpcom.lib nspr4.lib plds4.lib"
-				AdditionalLibraryDirectories="C:\xulrunner\sdk\lib"
+				AdditionalLibraryDirectories="&quot;C:\xulrunner-sdk-1.9.1.7\sdk\lib&quot;;&quot;C:\xulrunner-sdk-1.9.1.7\lib&quot;"
 				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="MSVCRT"
 				GenerateDebugInformation="true"
@@ -103,6 +110,11 @@
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
+				Name="IDL compile header"
+				XpIDLIncludePath="C:\dev\greenchallenge\xulrunner-sdk-1.9.1.7\sdk\idl;c:\dev\greenchallenge\xulrunner-sdk-1.9.1.7\idl"
+				XpIDLBinPath="c:\dev\greenchallenge\xulrunner-sdk-1.9.1.7\bin"
+			/>
+			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
 			<Tool
@@ -115,10 +127,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="c:\xulrunner\include\dom;c:\xulrunner\include\xpcom;C:\xulrunner\include\caps;C:\xulrunner\sdk\include"
+				AdditionalIncludeDirectories="&quot;c:\dev\greenchallenge\xulrunner-sdk-1.9.1.7\include\dom&quot;;&quot;c:\dev\greenchallenge\xulrunner-sdk-1.9.1.7\include\xpcom&quot;;&quot;C:\dev\greenchallenge\xulrunner-sdk-1.9.1.7\include\caps&quot;;&quot;C:\dev\greenchallenge\xulrunner-sdk-1.9.1.7\sdk\include&quot;"
 				PreprocessorDefinitions="XP_WIN"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				TreatWChar_tAsBuiltInType="false"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -134,9 +147,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="xpcomglue_s.lib xpcom.lib nspr4.lib plds4.lib libcmt.lib"
-				AdditionalLibraryDirectories="C:\xulrunner\sdk\lib"
+				AdditionalLibraryDirectories="&quot;C:\dev\greenchallenge\xulrunner-sdk-1.9.1.7\sdk\lib&quot;;&quot;C:dev\greenchallenge\\xulrunner-sdk-1.9.1.7\lib&quot;"
 				IgnoreDefaultLibraryNames="MSVCRT"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="false"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -224,6 +237,29 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+		</Filter>
+		<Filter
+			Name="IDL"
+			>
+			<File
+				RelativePath="..\clICPU.idl"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="IDL compile header"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\clICPUTime.idl"
+				>
+			</File>
+			<File
+				RelativePath="..\clISystem.idl"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
