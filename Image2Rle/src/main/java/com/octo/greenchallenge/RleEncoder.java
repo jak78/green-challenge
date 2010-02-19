@@ -4,6 +4,19 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Encode an image in RLE.
+ * <p>
+ * 
+ * The format is the following: <b>width height
+ * (number_of_pixel_of_the_following_color color)*</b>
+ * <p>
+ * 
+ * All data is on 4 bytes. The color is RGBA (in order from the less to the most
+ * significative byte)
+ * 
+ * @author Henri Tremblay
+ */
 public class RleEncoder {
 
 	public static int[] encode(BufferedImage image) {

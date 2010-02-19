@@ -12,8 +12,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.octo.greenchallenge.RleEncoder;
-
+/**
+ * @author Henri Tremblay
+ */
 public class RleEncoderTest {
 
 	@Before
