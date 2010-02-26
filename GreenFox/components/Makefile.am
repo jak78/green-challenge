@@ -35,19 +35,19 @@ IDL_FILES = 			\
 	clISystem.idl		\
 	clICPU.idl		\
 	clICPUTime.idl \
-	clGreeFox.idl
+	clIGreenFox.idl
 
 XPT_FILES = 			\
 	clISystem.xpt		\
 	clICPU.xpt		\
 	clICPUTime.xpt \
-	clGreeFox.xpt
+	clIGreenFox.xpt
 
 INTERFACE_FILES = 		\
 	clISystem.h		\
 	clICPU.h		\
 	clICPUTime.h \
-	clGreeFox.h
+	clIGreenFox.h
 
 BUILT_SOURCES =			\        	
 	$(XPT_FILES)		\
