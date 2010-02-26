@@ -21,6 +21,7 @@ class clGreenFox : public clIGreenFox
 public:
   NS_DECL_ISUPPORTS
   NS_DECL_CLIGREENFOX
+	NS_DECL_NSISECURITYCHECKEDCOMPONENT
 
   clGreenFox();
 

@@ -78,8 +78,8 @@ NS_IMETHODIMP clGreenFox::Stop(double *_retval NS_OUTPARAM)
 	clock_t user_children_time = stop->tms_cutime - clGreenFox::start->tms_cutime;
 	clock_t system_children_time = stop->tms_cstime - clGreenFox::start->tms_cstime;
 	
-	_retval = user_time + system_time + user_children_time + system_children_time; 
-    return NS_OK;
+	_retval = user_time + system_time + user_children_time + system_children_time;
+  return NS_OK;
 #elif defined(XP_WIN)
     FILETIME idleTime, kernelTime, userTime;
     GetSystemTimes(&idleTime, &kernelTime, &userTime);
