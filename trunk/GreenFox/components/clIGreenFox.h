@@ -1,9 +1,9 @@
 /*
- * DO NOT EDIT.  THIS FILE IS GENERATED FROM clGreenFox.idl
+ * DO NOT EDIT.  THIS FILE IS GENERATED FROM clIGreenFox.idl
  */
 
-#ifndef __gen_clGreenFox_h__
-#define __gen_clGreenFox_h__
+#ifndef __gen_clIGreenFox_h__
+#define __gen_clIGreenFox_h__
 
 
 #ifndef __gen_nsISupports_h__
@@ -100,4 +100,4 @@ NS_IMETHODIMP clGreenFox::Stop(double *_retval NS_OUTPARAM)
 #endif
 
 
-#endif /* __gen_clGreenFox_h__ */
+#endif /* __gen_clIGreenFox_h__ */

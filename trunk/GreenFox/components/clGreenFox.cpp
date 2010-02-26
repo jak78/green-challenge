@@ -33,13 +33,9 @@ clGreenFox::~clGreenFox()
 NS_IMETHODIMP clGreenFox::Start()
 {
 #ifdef defined(XP_LINUX)
-    tms ff;
-		times(&ff);
-		mPreviousUserTime = ff->tms_utime;
-    mPreviousSystemTime = ff->tms_stime;
-    mPreviousNiceTime = 0;
-    mPreviousIdleTime = 0;
-    mPreviousIOWaitTime = 0;
+		times(&clGreenFox::start);
+		return NS_OK;
+    
 #elif defined(XP_WIN)
     FILETIME idleTime, kernelTime, userTime;
     GetSystemTimes(&idleTime, &kernelTime, &userTime);
@@ -74,28 +70,15 @@ NS_IMETHODIMP clGreenFox::Start()
 NS_IMETHODIMP clGreenFox::Stop(double *_retval NS_OUTPARAM)
 {
 #ifdef defined(XP_LINUX)
-    glibtop_cpu cpu;
-    glibtop_get_cpu(&cpu);
-
-    guint64 user = cpu.user - mPreviousUserTime;
-    guint64 system = cpu.sys - mPreviousSystemTime;
-    guint64 nice = cpu.nice - mPreviousNiceTime;
-    guint64 idle = cpu.idle - mPreviousIdleTime;
-    guint64 io_wait = cpu.iowait + cpu.irq + cpu.softirq - mPreviousIOWaitTime;
-
-    guint64 total = user + system + nice + idle + io_wait;
-
-    if (total == 0) {
-        *result = new clCPUTime(0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-    } else {
-        *result = new clCPUTime((double)user / total,
-                                (double)nice / total,
-                                (double)system / total,
-                                (double)idle / total,
-                                (double)io_wait / total);
-    }
-    NS_ADDREF(*result);
-    setPreviousCPUTime(&cpu);
+	tms stop;
+	times(&stop);           
+		
+	clock_t user_time = stop->tms_utime - clGreenFox::start->tms_utime;
+	clock_t system_time = stop->tms_stime - clGreenFox::start->tms_stime;
+	clock_t user_children_time = stop->tms_cutime - clGreenFox::start->tms_cutime;
+	clock_t system_children_time = stop->tms_cstime - clGreenFox::start->tms_cstime;
+	
+	_retval = user_time + system_time + user_children_time + system_children_time; 
     return NS_OK;
 #elif defined(XP_WIN)
     FILETIME idleTime, kernelTime, userTime;
