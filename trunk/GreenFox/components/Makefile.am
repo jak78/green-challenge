@@ -17,12 +17,13 @@ clSystemMonitor_la_SOURCES = 	\
 	clCPUTime.h		\
 	clSystem.cpp		\
 	clSystem.h		\
-	clSystemModule.cpp
+	clSystemModule.cpp \
+	clGreenFox.h \
+	clGreenFox.cpp
 
 clSystemMonitor_la_LIBADD = 	\
-	$(XPCOM_LIBS)		\
-	$(LIBGTOP2_LIBS)
-
+	$(XPCOM_LIBS)		
+	
 clSystemMonitor_la_LDFLAGS = 	\
         -rpath `pwd`/.libs      \
 	-avoid-version		\
@@ -33,19 +34,22 @@ clSystemMonitor_la_LDFLAGS = 	\
 IDL_FILES = 			\
 	clISystem.idl		\
 	clICPU.idl		\
-	clICPUTime.idl
+	clICPUTime.idl \
+	clGreeFox.idl
 
 XPT_FILES = 			\
 	clISystem.xpt		\
 	clICPU.xpt		\
-	clICPUTime.xpt
+	clICPUTime.xpt \
+	clGreeFox.xpt
 
 INTERFACE_FILES = 		\
 	clISystem.h		\
 	clICPU.h		\
-	clICPUTime.h
+	clICPUTime.h \
+	clGreeFox.h
 
-BUILT_SOURCES =			\
+BUILT_SOURCES =			\        	
 	$(XPT_FILES)		\
 	$(INTERFACE_FILES)
 

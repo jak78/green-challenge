@@ -30,31 +30,32 @@ esac
 AC_SUBST(PLATFORM)
 AC_SUBST(COMPILER)
 
-case "$host_cpu" in
-  i*)
-    CPU="x86"
-    ;;
-esac
+# case "$host_cpu" in
+#   i*)
+    CPU="x86_64"
+#     ;;
+# esac
 AC_SUBST(CPU)
 
 AC_CHECK_XULRUNNER
 
-libgtop2_exists=no
-PKG_CHECK_MODULES(LIBGTOP2, libgtop-2.0,
-		  [libgtop2_exists=yes], [libgtop2_exists=no])
-if test x"$libgtop2_exists" = "xyes"; then
-  libgtop2_available=yes
-  AC_DEFINE(HAVE_LIBGTOP2, 1, [Define to 1 if you use libgtop-2.0])
-else
-  libgtop2_available=no
-fi
+# libgtop2_exists=no
+# PKG_CHECK_MODULES(LIBGTOP2, libgtop-2.0,
+# 		  [libgtop2_exists=yes], [libgtop2_exists=no])
+# if test x"$libgtop2_exists" = "xyes"; then
+#   libgtop2_available=yes
+#   AC_DEFINE(HAVE_LIBGTOP2, 1, [Define to 1 if you use libgtop-2.0])
+# else
+#   libgtop2_available=no
+# fi
 
 SHARED_LIBRARY_SUFFIX="$shrext_cmds"
 AC_SUBST(SHARED_LIBRARY_SUFFIX)
 
 EXTENSION_CXXFLAGS="-DXPCOM_GLUE -DXPCOM_GLUE_USE_NSPR"
 EXTENSION_CXXFLAGS="$EXTENSION_CXXFLAGS $XPCOM_CFLAGS"
-EXTENSION_CXXFLAGS="$EXTENSION_CXXFLAGS $LIBGTOP2_CFLAGS"
+# EXTENSION_CXXFLAGS="$EXTENSION_CXXFLAGS $LIBGTOP2_CFLAGS"
+EXTENSION_CXXFLAGS="$EXTENSION_CXXFLAGS"
 AC_SUBST(EXTENSION_CXXFLAGS)
 
 AC_CONFIG_FILES([

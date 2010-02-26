@@ -23,9 +23,6 @@ public:
   NS_DECL_NSISECURITYCHECKEDCOMPONENT
 
 private:
-#ifdef HAVE_LIBGTOP2
-  void setPreviousCPUTime(void *gtop_cpu);
-#endif
   PRUint64 mPreviousUserTime;
   PRUint64 mPreviousNiceTime;
   PRUint64 mPreviousSystemTime;

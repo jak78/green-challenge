@@ -4,8 +4,8 @@
 #include <nsMemory.h>
 #include <nsCOMPtr.h>
 
-#ifdef HAVE_LIBGTOP2
-#include <glibtop/cpu.h>
+#ifdef defined(XP_LINUX)
+#include <sys/times.h>
 #elif defined(XP_WIN)
 #include <windows.h>
 #undef GetCurrentTime /* CAUTION! Use GetTickCount instead of GetCurrentTime*/
@@ -18,19 +18,6 @@
 
 #include "clCPUTime.h"
 
-#ifdef HAVE_LIBGTOP2
-void
-clCPU::setPreviousCPUTime (void *gtop_cpu)
-{
-    glibtop_cpu *cpu = (glibtop_cpu*)gtop_cpu;
-    mPreviousUserTime = cpu->user;
-    mPreviousSystemTime = cpu->sys;
-    mPreviousNiceTime = cpu->nice;
-    mPreviousIdleTime = cpu->idle;
-    mPreviousIOWaitTime = cpu->iowait + cpu->irq + cpu->softirq;
-}
-
-#endif /* HAVE_LIBGTOP2 */
 clCPU::clCPU()
     : mPreviousUserTime(0)
     , mPreviousNiceTime(0)
@@ -38,11 +25,14 @@ clCPU::clCPU()
     , mPreviousIdleTime(0)
     , mPreviousIOWaitTime(0)
 {
-#ifdef HAVE_LIBGTOP2
-    glibtop_cpu cpu;
-    glibtop_init();
-    glibtop_get_cpu(&cpu);
-    setPreviousCPUTime(&cpu);
+#ifdef defined(XP_LINUX)
+    tms ff;
+		times(&ff);
+		mPreviousUserTime = ff->tms_utime;
+    mPreviousSystemTime = ff->tms_stime;
+    mPreviousNiceTime = 0;
+    mPreviousIdleTime = 0;
+    mPreviousIOWaitTime = 0;
 #elif defined(XP_WIN)
     FILETIME idleTime, kernelTime, userTime;
     GetSystemTimes(&idleTime, &kernelTime, &userTime);
@@ -84,7 +74,7 @@ NS_IMPL_ISUPPORTS2_CI(clCPU,
 NS_IMETHODIMP
 clCPU::GetCurrentTime(clICPUTime **result NS_OUTPARAM)
 {
-#ifdef HAVE_LIBGTOP2
+#ifdef defined(XP_LINUX)
     glibtop_cpu cpu;
     glibtop_get_cpu(&cpu);
 
