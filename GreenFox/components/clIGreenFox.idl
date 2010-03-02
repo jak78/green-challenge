@@ -4,6 +4,6 @@
 
 interface clIGreenFox : nsISupports
 {
-  void start();
+    void start();
 	double stop();
 };

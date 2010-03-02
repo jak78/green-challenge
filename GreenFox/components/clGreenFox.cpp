@@ -17,7 +17,7 @@
 #endif
 
 /* Implementation file */
-NS_IMPL_ISUPPORTS1(clGreenFox, clIGreenFox)
+//NS_IMPL_ISUPPORTS1(clGreenFox, clIGreenFox)
 
 clGreenFox::clGreenFox()
 {
@@ -29,6 +29,13 @@ clGreenFox::~clGreenFox()
   /* destructor code */
 }
 
+
+//relatif à l'API _GetHelper...
+NS_IMPL_ISUPPORTS2_CI(clGreenFox,
+                      clIGreenFox,
+                      nsISecurityCheckedComponent)
+
+
 /* void start (); */
 NS_IMETHODIMP clGreenFox::Start()
 {
@@ -37,13 +44,18 @@ NS_IMETHODIMP clGreenFox::Start()
 		return NS_OK;
     
 #elif defined(XP_WIN)
-    FILETIME idleTime, kernelTime, userTime;
-    GetSystemTimes(&idleTime, &kernelTime, &userTime);
+
+	FILETIME creationTime, exitTime, kernelTime, userTime;
+
+	HANDLE process;
+	process = GetCurrentProcess();
+	GetProcessTimes(process, &creationTime, &exitTime, &kernelTime, &userTime);
+
     mPreviousUserTime = FILETIME_TO_UINT64(userTime);
     mPreviousSystemTime = FILETIME_TO_UINT64(kernelTime);
-    mPreviousIdleTime = FILETIME_TO_UINT64(idleTime);
-    mPreviousNiceTime = 0;
-    mPreviousIOWaitTime = 0;
+
+	return NS_OK;
+
 #elif defined(XP_MACOSX)
     natural_t nProcessors;
     mach_msg_type_number_t nProcessorInfos;
@@ -78,47 +90,25 @@ NS_IMETHODIMP clGreenFox::Stop(double *_retval NS_OUTPARAM)
 	clock_t user_children_time = stop->tms_cutime - clGreenFox::start->tms_cutime;
 	clock_t system_children_time = stop->tms_cstime - clGreenFox::start->tms_cstime;
 	
+	!!! attention _retval est un pointeur !!!
+
 	_retval = user_time + system_time + user_children_time + system_children_time;
   return NS_OK;
 #elif defined(XP_WIN)
-    FILETIME idleTime, kernelTime, userTime;
-    GetSystemTimes(&idleTime, &kernelTime, &userTime);
+
+	FILETIME creationTime, exitTime, kernelTime, userTime;
+
+	HANDLE process;
+	process = GetCurrentProcess();
+	GetProcessTimes(process, &creationTime, &exitTime, &kernelTime, &userTime);
 
     UINT64 user = FILETIME_TO_UINT64(userTime) - mPreviousUserTime;
     UINT64 kernel = FILETIME_TO_UINT64(kernelTime) - mPreviousSystemTime;
-    UINT64 idle = FILETIME_TO_UINT64(idleTime) - mPreviousIdleTime;
 
-    UINT64 total = user + kernel;
-
-    /*
-      Trick!!
-      On windows, we can not calcurate kernel and user times without idle time respectively,
-      because the kernel and user times which returned by GetSystemTimes are including
-      idle times.
-      kernel time = (cpu usage time in kernel) + (cpu idle time in kernel)
-      user time = (cpu usage time in user space) + (cpu idle time in user space)
-      idle time = (cpu idle time in kernel) + (cpu idle time in user space)
-      So we set (cpu usage time in kernel) + (cpu usage time in user space) value as
-      kernel time for the convinience. This value is used in GetUsage.
-    */
-    kernel = total - idle;
-
-    mPreviousUserTime = FILETIME_TO_UINT64(userTime);
-    mPreviousSystemTime = FILETIME_TO_UINT64(kernelTime);
-    mPreviousIdleTime = FILETIME_TO_UINT64(idleTime);
-
-    if (total == 0) {
-        *result = new clCPUTime(0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-    } else {
-        *result = new clCPUTime((double)0.0f,
-                                (double)0.0f,
-                                (double)kernel / total,
-                                (double)idle / total,
-                                (double)0.0f);
-    }
-    NS_ADDREF(*result);
+	*_retval = (double)(user + kernel);
 
     return NS_OK;
+
 #elif defined(XP_MACOSX)
     natural_t nProcessors;
     mach_msg_type_number_t nProcessorInfos;
@@ -169,7 +159,54 @@ NS_IMETHODIMP clGreenFox::Stop(double *_retval NS_OUTPARAM)
     NS_ADDREF(*result);
 
     return NS_OK;
+
 #else
     return NS_ERROR_NOT_IMPLEMENTED;
 #endif
 }
+
+
+
+
+
+/* -------------------------------------------------------------------------------------- */
+
+static char *
+cloneAllAccessString (void)
+{
+    static const char allAccessString[] = "allAccess";
+    return (char*)nsMemory::Clone(allAccessString, sizeof(allAccessString));
+}
+
+NS_IMETHODIMP
+clGreenFox::CanCreateWrapper(const nsIID * iid, char **_retval NS_OUTPARAM)
+{
+    *_retval = cloneAllAccessString();
+    return NS_OK;
+}
+
+NS_IMETHODIMP
+clGreenFox::CanCallMethod(const nsIID * iid, const PRUnichar *methodName, char **_retval NS_OUTPARAM)
+{
+    *_retval = cloneAllAccessString();
+    return NS_OK;
+}
+
+NS_IMETHODIMP
+clGreenFox::CanGetProperty(const nsIID * iid, const PRUnichar *propertyName, char **_retval NS_OUTPARAM)
+{
+    *_retval = cloneAllAccessString();
+    return NS_OK;
+}
+
+NS_IMETHODIMP
+clGreenFox::CanSetProperty(const nsIID * iid, const PRUnichar *propertyName, char **_retval NS_OUTPARAM)
+{
+    *_retval = cloneAllAccessString();
+    return NS_OK;
+}
+
+
+/* -------------------------------------------------------------------------------------- */
+
+

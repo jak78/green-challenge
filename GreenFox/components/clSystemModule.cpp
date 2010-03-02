@@ -77,4 +77,4 @@ static nsModuleComponentInfo systemComponents[] =
     },
 };
 
-NS_IMPL_NSGETMODULE(clSystemMonitorModule, systemComponents);
+//NS_IMPL_NSGETMODULE(clSystemMonitorModule, systemComponents);

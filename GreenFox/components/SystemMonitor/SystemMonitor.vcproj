@@ -208,6 +208,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\clGreenFox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\clGreenFoxModule.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\clSystem.cpp"
 				>
 			</File>
@@ -230,11 +238,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\clGreenFox.h"
+				>
+			</File>
+			<File
 				RelativePath="..\clICPU.h"
 				>
 			</File>
 			<File
 				RelativePath="..\clICPUTime.h"
+				>
+			</File>
+			<File
+				RelativePath="..\clIGreenFox.h"
 				>
 			</File>
 			<File
@@ -261,6 +277,10 @@
 			</File>
 			<File
 				RelativePath="..\clICPUTime.idl"
+				>
+			</File>
+			<File
+				RelativePath="..\clIGreenFox.idl"
 				>
 			</File>
 			<File
