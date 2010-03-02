@@ -22,6 +22,7 @@ component_xpt="components/*.xpt"
 
 xpcom_name=system-monitor
 xpi=$xpcom_name-$version.xpi
+xpi_win=$xpcom_name-$version.x86.xpi
 
 cp -f $build_libraries platform/$platform_component_directory/components/
 xpi_contents="content locale skin defaults $component_xpt platform chrome.manifest install.rdf"
@@ -30,4 +31,4 @@ rm -f $xpi
 
 zip -q -r -9 $xpi $xpi_contents -x \*/.git/\* || exit 1
 
-
+cp $xpi $xpi_win
