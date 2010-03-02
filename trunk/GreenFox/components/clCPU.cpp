@@ -26,7 +26,7 @@ clCPU::clCPU()
     , mPreviousIOWaitTime(0)
 {
 #ifdef defined(XP_LINUX)
-    tms ff;
+	tms ff;
 		times(&ff);
 		mPreviousUserTime = ff->tms_utime;
     mPreviousSystemTime = ff->tms_stime;
@@ -34,13 +34,19 @@ clCPU::clCPU()
     mPreviousIdleTime = 0;
     mPreviousIOWaitTime = 0;
 #elif defined(XP_WIN)
-    FILETIME idleTime, kernelTime, userTime;
-    GetSystemTimes(&idleTime, &kernelTime, &userTime);
+
+    FILETIME idleTime, kernelTime, userTime, creationTime, exitTime;
+
+	HANDLE process;
+	process = GetCurrentProcess();
+	GetProcessTimes(process, &creationTime, &exitTime, &kernelTime, &userTime);
+
     mPreviousUserTime = FILETIME_TO_UINT64(userTime);
     mPreviousSystemTime = FILETIME_TO_UINT64(kernelTime);
-    mPreviousIdleTime = FILETIME_TO_UINT64(idleTime);
+    mPreviousIdleTime = 0;
     mPreviousNiceTime = 0;
     mPreviousIOWaitTime = 0;
+
 #elif defined(XP_MACOSX)
     natural_t nProcessors;
     mach_msg_type_number_t nProcessorInfos;
@@ -75,7 +81,7 @@ NS_IMETHODIMP
 clCPU::GetCurrentTime(clICPUTime **result NS_OUTPARAM)
 {
 #ifdef defined(XP_LINUX)
-    glibtop_cpu cpu;
+	glibtop_cpu cpu;
     glibtop_get_cpu(&cpu);
 
     guint64 user = cpu.user - mPreviousUserTime;
@@ -99,44 +105,36 @@ clCPU::GetCurrentTime(clICPUTime **result NS_OUTPARAM)
     setPreviousCPUTime(&cpu);
     return NS_OK;
 #elif defined(XP_WIN)
-    FILETIME idleTime, kernelTime, userTime;
-    GetSystemTimes(&idleTime, &kernelTime, &userTime);
+
+    FILETIME kernelTime, userTime, creationTime, exitTime;
+
+	HANDLE process;
+	process = GetCurrentProcess();
+	GetProcessTimes(process, &creationTime, &exitTime, &kernelTime, &userTime);
 
     UINT64 user = FILETIME_TO_UINT64(userTime) - mPreviousUserTime;
     UINT64 kernel = FILETIME_TO_UINT64(kernelTime) - mPreviousSystemTime;
-    UINT64 idle = FILETIME_TO_UINT64(idleTime) - mPreviousIdleTime;
+    UINT64 idle = 0; 
 
     UINT64 total = user + kernel;
 
-    /*
-      Trick!!
-      On windows, we can not calcurate kernel and user times without idle time respectively,
-      because the kernel and user times which returned by GetSystemTimes are including
-      idle times.
-      kernel time = (cpu usage time in kernel) + (cpu idle time in kernel)
-      user time = (cpu usage time in user space) + (cpu idle time in user space)
-      idle time = (cpu idle time in kernel) + (cpu idle time in user space)
-      So we set (cpu usage time in kernel) + (cpu usage time in user space) value as
-      kernel time for the convinience. This value is used in GetUsage.
-    */
-    kernel = total - idle;
-
     mPreviousUserTime = FILETIME_TO_UINT64(userTime);
     mPreviousSystemTime = FILETIME_TO_UINT64(kernelTime);
-    mPreviousIdleTime = FILETIME_TO_UINT64(idleTime);
+    mPreviousIdleTime = 0;
 
     if (total == 0) {
         *result = new clCPUTime(0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
     } else {
-        *result = new clCPUTime((double)0.0f,
+        *result = new clCPUTime((double)user / total,
                                 (double)0.0f,
                                 (double)kernel / total,
-                                (double)idle / total,
+                                (double)0.0f,
                                 (double)0.0f);
     }
     NS_ADDREF(*result);
 
     return NS_OK;
+
 #elif defined(XP_MACOSX)
     natural_t nProcessors;
     mach_msg_type_number_t nProcessorInfos;
