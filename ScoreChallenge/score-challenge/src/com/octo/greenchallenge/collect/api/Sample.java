@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * One measure.
  */
-@Entity(name = "CollectedSample")
+@Entity
 public class Sample {
 
     @Id
