@@ -34,7 +34,7 @@ public class CollectCPUServiceImpl implements CollectCPUService {
     public String dumpAllRecordedSamples() {
         EntityManager em = emf.createEntityManager();
         try {
-            Query q = em.createQuery("select s from CollectedSample s");
+            Query q = em.createQuery("select s from Sample s");
             List<Sample> res = q.getResultList();
             return res.toString();
         } finally {
