@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AntConfiguration">
+    <defaultAnt bundledAnt="true" />
+  </component>
+  <component name="ArtifactManager">
+    <artifact type="exploded-war" name="score-challenge:war exploded">
+      <output-path>$PROJECT_DIR$/out/artifacts/score_challenge_war_exploded</output-path>
+      <root id="root">
+        <element id="javaee-facet-resources" facet="score-challenge/web/Web" />
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="classes">
+            <element id="module-output" name="score-challenge" />
+          </element>
+          <element id="directory" name="lib">
+            <element id="library" level="project" name="AppEngine ORM" />
+            <element id="library" level="project" name="AppEngine API" />
+          </element>
+        </element>
+      </root>
+    </artifact>
+  </component>
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Javac" />
+    <resourceExtensions>
+      <entry name=".+\.(properties|xml|html|dtd|tld)" />
+      <entry name=".+\.(gif|png|jpeg|jpg)" />
+    </resourceExtensions>
+    <wildcardResourcePatterns>
+      <entry name="?*.properties" />
+      <entry name="?*.xml" />
+      <entry name="?*.gif" />
+      <entry name="?*.png" />
+      <entry name="?*.jpeg" />
+      <entry name="?*.jpg" />
+      <entry name="?*.html" />
+      <entry name="?*.dtd" />
+      <entry name="?*.tld" />
+      <entry name="?*.ftl" />
+    </wildcardResourcePatterns>
+    <annotationProcessing enabled="false" useClasspath="true" />
+  </component>
+  <component name="CopyrightManager" default="">
+    <module2copyright />
+  </component>
+  <component name="DependencyValidationManager">
+    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
+  </component>
+  <component name="EclipseCompilerSettings">
+    <option name="GENERATE_NO_WARNINGS" value="true" />
+    <option name="DEPRECATION" value="false" />
+  </component>
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" />
+    <option name="OPTION_SCOPE" value="protected" />
+    <option name="OPTION_HIERARCHY" value="true" />
+    <option name="OPTION_NAVIGATOR" value="true" />
+    <option name="OPTION_INDEX" value="true" />
+    <option name="OPTION_SEPARATE_INDEX" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_USE" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true" />
+    <option name="OPTION_DEPRECATED_LIST" value="true" />
+    <option name="OTHER_OPTIONS" value="" />
+    <option name="HEAP_SIZE" />
+    <option name="LOCALE" />
+    <option name="OPEN_IN_BROWSER" value="true" />
+  </component>
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/score-challenge.iml" filepath="$PROJECT_DIR$/score-challenge.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchMap">
+                <map>
+                  <entry key="https://green-challenge.googlecode.com/svn/branches">
+                    <value>
+                      <list />
+                    </value>
+                  </entry>
+                  <entry key="https://green-challenge.googlecode.com/svn/tags">
+                    <value>
+                      <list />
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://green-challenge.googlecode.com/svn/branches" />
+                  <option value="https://green-challenge.googlecode.com/svn/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://green-challenge.googlecode.com/svn/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="svn" />
+  </component>
+  <component name="libraryTable">
+    <library name="AppEngine API">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/lib/user" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+      <jarDirectory url="file://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/lib/user" recursive="false" />
+    </library>
+    <library name="AppEngine ORM">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/lib/user/orm" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/src/orm/datanucleus-appengine-1.0.5.final-src.zip!/" />
+        <root url="jar://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/src/orm/datanucleus-core-1.1.5-src.zip!/datanucleus-core-1.1.5/src/java" />
+        <root url="jar://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/src/orm/datanucleus-enhancer-1.1.4-src.zip!/" />
+        <root url="jar://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/src/orm/datanucleus-jpa-1.1.5-src.zip!/datanucleus-jpa-1.1.5/src/java" />
+        <root url="jar://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/src/orm/jdo2-api-2.3-SNAPSHOT-src.zip!/" />
+      </SOURCES>
+      <jarDirectory url="file://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/lib/user/orm" recursive="false" />
+    </library>
+    <library name="AppEngine Tools API">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/lib/appengine-tools-api.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Specs">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../../../java-apps/appengine-java-sdk/lib/shared/geronimo-servlet_2.5_spec-1.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
+</project>
+
