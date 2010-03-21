@@ -24,7 +24,6 @@ import static org.mockito.Mockito.*;
  */
 @SuppressWarnings("unchecked")
 public class CollectCPUServletTest {
-
     CollectCPUServlet servlet;
 
     CollectCPUService service;
@@ -143,7 +142,7 @@ public class CollectCPUServletTest {
     }
 
     private void shouldLogSomething() {
-        verify(svContext).log(anyString(),(Throwable)any());
+        verify(svContext).log(anyString(), (Throwable) any());
     }
 
     private void shouldLog(Throwable err) {

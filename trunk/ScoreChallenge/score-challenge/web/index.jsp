@@ -25,6 +25,5 @@
         <input type="submit" value="Soumettre">
     </fieldset>
 </form>
-<p><a href="api/collect/dump">Dumper le contenu du datastore des samples</a></p>
 </body>
 </html>
