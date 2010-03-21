@@ -12,17 +12,8 @@
         <servlet-name>CollectCPUServlet</servlet-name>
         <servlet-class>com.octo.greenchallenge.collect.api.CollectCPUServlet</servlet-class>
     </servlet>
-    <servlet>
-        <display-name>Dump</display-name>
-        <servlet-name>DumpServlet</servlet-name>
-        <servlet-class>com.octo.greenchallenge.collect.api.DumpServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>CollectCPUServlet</servlet-name>
         <url-pattern>/api/collect/cpu</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DumpServlet</servlet-name>
-        <url-pattern>/api/collect/dump</url-pattern>
     </servlet-mapping>
 </web-app>
