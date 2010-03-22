@@ -18,22 +18,36 @@ public class QRDecoderServlet extends HttpServlet {
 
 	private static final Logger log = Logger.getLogger(QRDecoderServlet.class
 			.getName());
-
+	
+	int decodeCycle= 10;
+	private static final String rootPath="WEB-INF/qrc/";
+	private static final String imageType=".qrc";
+	private static final String[] filenames = new String[]{"amazon","apache","apple","att","cisco","dell","ebay","facebook","google","hp","ibm","intel","linkedin","microsoft","mozilla","oracle","oreilly","redhat","techcrunch","wired"};
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("text/plain");
 
 		String decodedString = "";
 		QuotaService qs = QuotaServiceFactory.getQuotaService();
-		for (int j = 0; j < 10; j++) {
+		// plusieurs executions afin de voir si les rŽsultats sont reproductibles, (et pour faire 1 moyenne)
+		for (int j = 0; j < decodeCycle; j++) {
 			long start = qs.getCpuTimeInMegaCycles();
-			for (int i = 0; i < 100; i++) {
-
+			//for (int i = 0; i < 100; i++) {
+			log.info("Start : "+start);
 				QRCodeDecoder decoder = new QRCodeDecoder();
-				decodedString = processDecode("WEB-INF/qrc/apple.qrc", decoder);
+				//affichage des valeurs dŽcodŽes ˆ la dernire exŽcution
+				for(int k=0;k<filenames.length ;k++){
+					if (j==(decodeCycle-1)) {
+						decodedString += processDecode(rootPath+filenames[k]+imageType, decoder);
+						decodedString += "\\n";
+					}
+				}
+				
 
-			}
+			//}
 			long end = qs.getCpuTimeInMegaCycles();
+			log.info("End : "+end);
 			double cpuSeconds = qs.convertMegacyclesToCpuSeconds(end - start);
 			log.info("CPU en secondes : " + cpuSeconds
 					+ " / CPU en Megacycles : " + (end - start));
