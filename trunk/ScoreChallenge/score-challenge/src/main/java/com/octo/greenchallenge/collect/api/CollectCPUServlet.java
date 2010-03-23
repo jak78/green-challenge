@@ -59,6 +59,7 @@ public class CollectCPUServlet extends javax.servlet.http.HttpServlet {
 
         Map<String, String[]> httpParams = request.getParameterMap();
         Map<String, String> params = getUniqueParams(httpParams);
+        log("sample received: " + params);
         try {
             Sample sample = Sample.build(params);
             service.recordData(sample);
