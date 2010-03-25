@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +24,7 @@ public class CollectCPUServiceImpl implements CollectCPUService {
     public void recordData(Sample recordedSample) {
         EntityManager em = emf.createEntityManager();
         try {
+            recordedSample.setTimestamp(new Date());
             em.persist(recordedSample);
         } finally {
             em.close();
@@ -31,12 +34,18 @@ public class CollectCPUServiceImpl implements CollectCPUService {
     /**
      * {@inheritDoc}
      */
-    public String dumpAllRecordedSamples() {
+    public List<Sample> dumpAllRecordedSamples() {
         EntityManager em = emf.createEntityManager();
         try {
             Query q = em.createQuery("select s from Sample s");
-            List<Sample> res = q.getResultList();
-            return res.toString();
+            List<Sample> resQ = q.getResultList();
+            // FIXME fetch eager
+            List<Sample> res = new ArrayList<Sample>();
+            for( Sample s : resQ ) {
+                res.add( new Sample(s) );
+            }
+            return res;
+//            return resQ;
         } finally {
             em.close();
         }

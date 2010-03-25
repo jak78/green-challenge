@@ -2,10 +2,7 @@ package com.octo.greenchallenge.collect.api;
 
 import com.google.appengine.api.datastore.Key;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Map;
 
@@ -39,6 +36,15 @@ public class Sample {
     }
 
     /**
+     * Copy constructor.
+     * FIXME remove me
+     * @param s
+     */
+    public Sample(Sample s) {
+        this(s.challengerID,s.cpuCycles,s.timestamp,s.source);
+    }
+
+    /**
      * Constructor from a map of fields.
      *
      * @param data fields
@@ -55,7 +61,7 @@ public class Sample {
                 String rawCpuCycles = (String) data.get("CPUCycles");
                 assertNotBlank(rawCpuCycles, "CPUCycles");
                 sample.cpuCycles = Long.parseLong(rawCpuCycles);
-                if (sample.cpuCycles <= 0) {
+                if (sample.cpuCycles < 0) {
                     throw new NumberFormatException("invalid CPUCycles");
                 }
             } catch (Exception ex) {
