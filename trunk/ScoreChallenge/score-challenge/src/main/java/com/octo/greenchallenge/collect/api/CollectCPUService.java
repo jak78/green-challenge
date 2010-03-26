@@ -20,4 +20,9 @@ public interface CollectCPUService {
      * @return all recorded samples.
      */
     List<Sample> dumpAllRecordedSamples();
+
+    /**
+     * @return true if user is signed as admin, false otherwise
+     */
+    boolean isUserAdmin();
 }
