@@ -25,7 +25,6 @@ public class DumpCPUServlet extends HttpServlet {
         } else {
             List<Sample> allSamples = service.dumpAllRecordedSamples();
             // TODO tests avec accents dans samples
-            // TODO tests U
             for( Sample s : allSamples ) {
                 PrintWriter out = response.getWriter();
                 writeSample(s, out);
