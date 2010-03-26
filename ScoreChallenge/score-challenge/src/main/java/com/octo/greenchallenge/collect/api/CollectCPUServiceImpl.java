@@ -1,5 +1,7 @@
 package com.octo.greenchallenge.collect.api;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import org.datanucleus.jpa.JPAQuery;
 
 import javax.persistence.EntityManager;
@@ -13,6 +15,7 @@ import java.util.List;
 /**
  * {@inheritDoc}
  */
+// FIXME rename
 public class CollectCPUServiceImpl implements CollectCPUService {
 
     private static final EntityManagerFactory emf =
@@ -51,4 +54,11 @@ public class CollectCPUServiceImpl implements CollectCPUService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isUserAdmin() {
+        UserService userService = UserServiceFactory.getUserService();
+        return userService.isUserLoggedIn() && userService.isUserAdmin();
+    }
 }

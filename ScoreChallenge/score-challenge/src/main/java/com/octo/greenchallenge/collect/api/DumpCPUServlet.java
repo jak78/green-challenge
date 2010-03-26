@@ -1,5 +1,8 @@
 package com.octo.greenchallenge.collect.api;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +19,17 @@ public class DumpCPUServlet extends HttpServlet {
     CollectCPUService service = new CollectCPUServiceImpl();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Sample> allSamples = service.dumpAllRecordedSamples();
         response.setContentType("text/plain");
-        // TODO tests avec accents dans samples
-        // TODO tests U
-        for( Sample s : allSamples ) {
-            PrintWriter out = response.getWriter();
-            writeSample(s, out);
+        if( ! service.isUserAdmin() ) {
+            response.sendError(403,"You must be signed as admin to do this");
+        } else {
+            List<Sample> allSamples = service.dumpAllRecordedSamples();
+            // TODO tests avec accents dans samples
+            // TODO tests U
+            for( Sample s : allSamples ) {
+                PrintWriter out = response.getWriter();
+                writeSample(s, out);
+            }
         }
     }
 
