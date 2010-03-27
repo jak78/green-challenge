@@ -2,7 +2,6 @@ package com.octo.greenchallenge.collect.api;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import org.datanucleus.jpa.JPAQuery;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,8 +14,7 @@ import java.util.List;
 /**
  * {@inheritDoc}
  */
-// FIXME rename
-public class CollectCPUServiceImpl implements CollectCPUService {
+public class GAEServicesImpl implements GAEServices {
 
     private static final EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("transactions-optional");

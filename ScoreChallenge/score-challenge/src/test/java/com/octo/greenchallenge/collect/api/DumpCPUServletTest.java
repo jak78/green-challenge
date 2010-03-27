@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 public class DumpCPUServletTest extends ServletTest {
     DumpCPUServlet servlet;
 
-    CollectCPUService service;
+    GAEServices service;
     private static final String NL = System.getProperty("line.separator") ;
 
     List<Sample> samples;
@@ -31,7 +31,7 @@ public class DumpCPUServletTest extends ServletTest {
         samples.add(new Sample("chuck.norris@gmail.com", 3, null, SampleSource.SERVER_APP));
 
         servlet = new DumpCPUServlet();
-        service = mock(CollectCPUService.class);
+        service = mock(GAEServices.class);
 
         servlet.service = service;
         servlet.init(svConfig);

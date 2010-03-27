@@ -18,12 +18,12 @@ import static org.mockito.Mockito.*;
 public class CollectCPUServletTest extends ServletTest {
     CollectCPUServlet servlet;
 
-    CollectCPUService service;
+    GAEServices service;
 
     @Before
     public void setUp() throws ServletException, IOException {
         servlet = new CollectCPUServlet();
-        service = mock(CollectCPUService.class);
+        service = mock(GAEServices.class);
 
         servlet.service = service;
         servlet.init(svConfig);

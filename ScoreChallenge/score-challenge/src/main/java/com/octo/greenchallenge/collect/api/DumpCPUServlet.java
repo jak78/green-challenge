@@ -1,8 +1,5 @@
 package com.octo.greenchallenge.collect.api;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +13,7 @@ import java.util.List;
  */
 public class DumpCPUServlet extends HttpServlet {
 
-    CollectCPUService service = new CollectCPUServiceImpl();
+    GAEServices service = new GAEServicesImpl();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");

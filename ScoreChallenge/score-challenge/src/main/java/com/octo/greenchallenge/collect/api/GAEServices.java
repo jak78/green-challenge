@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Handle interaction with Google AppEngine APIs. This interface is used to mock GAE in order to test our code easily.
  */
-public interface CollectCPUService {
+public interface GAEServices {
 
     /**
      * Store sample in datastore.
