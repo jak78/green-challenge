@@ -30,6 +30,6 @@ public class DumpCPUServlet extends HttpServlet {
     }
 
     private void writeSample(Sample s, PrintWriter out) {
-        out.printf("%s\t%d\t%s%n",s.getChallengerID(),s.getCpuCycles(),s.getSource());
+        out.printf("%s\t%d\t%s\t%tc%n",s.getChallengerID(),s.getCpuCycles(),s.getSource(),s.getTimestamp());
     }
 }

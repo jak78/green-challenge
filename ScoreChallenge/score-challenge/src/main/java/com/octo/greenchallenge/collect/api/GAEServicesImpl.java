@@ -3,10 +3,8 @@ package com.octo.greenchallenge.collect.api;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,19 +14,16 @@ import java.util.List;
  */
 public class GAEServicesImpl implements GAEServices {
 
-    private static final EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("transactions-optional");
-
     /**
      * {@inheritDoc}
      */
     public void recordData(Sample recordedSample) {
-        EntityManager em = emf.createEntityManager();
+        PersistenceManager pm = PMF.get().getPersistenceManager();
         try {
             recordedSample.setTimestamp(new Date());
-            em.persist(recordedSample);
+            pm.makePersistent(recordedSample);
         } finally {
-            em.close();
+            pm.close();
         }
     }
 
@@ -36,19 +31,13 @@ public class GAEServicesImpl implements GAEServices {
      * {@inheritDoc}
      */
     public List<Sample> dumpAllRecordedSamples() {
-        EntityManager em = emf.createEntityManager();
+        PersistenceManager pm = PMF.get().getPersistenceManager();
         try {
-            Query q = em.createQuery("select s from Sample s");
-            List<Sample> resQ = q.getResultList();
-            // FIXME fetch eager
-            List<Sample> res = new ArrayList<Sample>();
-            for( Sample s : resQ ) {
-                res.add( new Sample(s) );
-            }
-            return res;
-//            return resQ;
+            Query q = pm.newQuery("select from " + Sample.class.getName());
+            List<Sample> resQ = (List<Sample>) q.execute();
+            return (List<Sample>) pm.detachCopyAll(resQ);
         } finally {
-            em.close();
+            pm.close();
         }
     }
 
