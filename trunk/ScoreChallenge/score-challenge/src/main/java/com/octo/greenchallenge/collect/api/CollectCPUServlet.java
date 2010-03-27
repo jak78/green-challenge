@@ -15,7 +15,7 @@ import static com.octo.greenchallenge.collect.api.StatusCode.*;
  */
 public class CollectCPUServlet extends javax.servlet.http.HttpServlet {
 
-    CollectCPUService service = new CollectCPUServiceImpl();
+    GAEServices service = new GAEServicesImpl();
 
     /**
      * <p>Handle POST HTTP request.</p>
