@@ -6,7 +6,10 @@ import org.mockito.Matchers;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -24,11 +27,12 @@ public class DumpCPUServletTest extends ServletTest {
     List<Sample> samples;
 
     @Before
-    public void setUp() throws ServletException, IOException {
+    public void setUp() throws ServletException, IOException, ParseException {
         samples = new ArrayList<Sample>();
-        samples.add(new Sample("chuck.norris@gmail.com", 1, null, SampleSource.SERVER_APP));
-        samples.add(new Sample("chuck.norris@gmail.com", 2, null, SampleSource.SERVER_APP));
-        samples.add(new Sample("chuck.norris@gmail.com", 3, null, SampleSource.SERVER_APP));
+        Date date = new SimpleDateFormat("dd-MM-yyyy").parse("01-02-2007");
+        samples.add(new Sample("chuck.norris@gmail.com", 1, date, SampleSource.SERVER_APP));
+        samples.add(new Sample("chuck.norris@gmail.com", 2, date, SampleSource.SERVER_APP));
+        samples.add(new Sample("chuck.norris@gmail.com", 3, date, SampleSource.SERVER_APP));
 
         servlet = new DumpCPUServlet();
         service = mock(GAEServices.class);
@@ -45,9 +49,9 @@ public class DumpCPUServletTest extends ServletTest {
 
         servlet.doGet(httpRequest, httpResponse);
         
-        assertEquals("chuck.norris@gmail.com\t1\tSERVER_APP" + NL +
-                "chuck.norris@gmail.com\t2\tSERVER_APP" + NL +
-                "chuck.norris@gmail.com\t3\tSERVER_APP" + NL,output.toString());
+        assertEquals("chuck.norris@gmail.com\t1\tSERVER_APP\tThu Feb 01 00:00:00 CET 2007" + NL +
+                "chuck.norris@gmail.com\t2\tSERVER_APP\tThu Feb 01 00:00:00 CET 2007" + NL +
+                "chuck.norris@gmail.com\t3\tSERVER_APP\tThu Feb 01 00:00:00 CET 2007" + NL,output.toString());
     }
 
     @Test

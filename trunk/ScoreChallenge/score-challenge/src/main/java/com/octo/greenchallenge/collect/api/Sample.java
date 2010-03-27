@@ -2,27 +2,37 @@ package com.octo.greenchallenge.collect.api;
 
 import com.google.appengine.api.datastore.Key;
 
-import javax.persistence.*;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 import java.util.Date;
 import java.util.Map;
 
 /**
  * One measure.
  */
-@Entity
+@PersistenceCapable
 public class Sample {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key id;
 
+    @Persistent
     private String challengerID;
+
+    @Persistent
     private long cpuCycles;
+
+    @Persistent
     private Date timestamp;
+    
+    @Persistent
     private SampleSource source;
 
     /**
-     * Blank constructor for JPA and XML marshalling.
+     * Blank constructor for JDO.
      */
     public Sample() {
 
@@ -38,10 +48,11 @@ public class Sample {
     /**
      * Copy constructor.
      * FIXME remove me when eager fetch or open session in view is implemented
+     *
      * @param s
      */
     public Sample(Sample s) {
-        this(s.challengerID,s.cpuCycles,s.timestamp,s.source);
+        this(s.challengerID, s.cpuCycles, s.timestamp, s.source);
     }
 
     /**
