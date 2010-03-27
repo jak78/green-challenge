@@ -47,7 +47,6 @@ public class Sample {
 
     /**
      * Copy constructor.
-     * FIXME remove me when eager fetch or open session in view is implemented
      *
      * @param s
      */
