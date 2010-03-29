@@ -1,8 +1,8 @@
 package com.octo.greenchallenge.collect.api;
 
 import com.google.appengine.api.users.UserService;
-import com.octo.greenchallenge.collect.api.persistence.GAEServices;
-import com.octo.greenchallenge.collect.api.persistence.GAEServicesImpl;
+import com.octo.greenchallenge.collect.api.gae.GAEServices;
+import com.octo.greenchallenge.collect.api.gae.GAEServicesImpl;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;

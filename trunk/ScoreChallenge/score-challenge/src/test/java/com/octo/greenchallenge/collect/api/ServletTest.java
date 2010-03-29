@@ -1,7 +1,7 @@
 package com.octo.greenchallenge.collect.api;
 
 import com.google.appengine.api.users.UserService;
-import com.octo.greenchallenge.collect.api.persistence.GAEServices;
+import com.octo.greenchallenge.collect.api.gae.GAEServices;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;

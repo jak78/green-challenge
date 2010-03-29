@@ -1,4 +1,4 @@
-package com.octo.greenchallenge.collect.api.persistence;
+package com.octo.greenchallenge.collect.api.gae;
 
 import com.google.appengine.api.users.UserService;
 
@@ -6,7 +6,6 @@ import javax.jdo.PersistenceManager;
 
 /**
  * Google APIs acces through an interface in order to easily mock GAE for unit tests.
- * FIXME rename package
  */
 public interface GAEServices {
 
