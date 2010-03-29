@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * One measure.
+ * One CPU time measure.
  */
 @PersistenceCapable
 public class Sample {
@@ -27,7 +27,7 @@ public class Sample {
 
     @Persistent
     private Date timestamp;
-    
+
     @Persistent
     private SampleSource source;
 
@@ -46,15 +46,6 @@ public class Sample {
     }
 
     /**
-     * Copy constructor.
-     *
-     * @param s
-     */
-    public Sample(Sample s) {
-        this(s.challengerID, s.cpuCycles, s.timestamp, s.source);
-    }
-
-    /**
      * Constructor from a map of fields.
      *
      * @param data fields
@@ -62,33 +53,36 @@ public class Sample {
      * @throws InvalidDataException when data is invalid
      */
     public static Sample build(Map<String, String> data) throws InvalidDataException {
+        Sample sample = new Sample();
+
+        sample.challengerID = data.get("challengerID");
+        // challengerID is mandatory
+        assertNotBlank(sample.challengerID, "challengerID");
+
         try {
-            Sample sample = new Sample();
-            sample.challengerID = (String) data.get("challengerID");
-            assertNotBlank(sample.challengerID, "challengerID");
-
-            try {
-                String rawCpuCycles = (String) data.get("CPUCycles");
-                assertNotBlank(rawCpuCycles, "CPUCycles");
-                sample.cpuCycles = Long.parseLong(rawCpuCycles);
-                if (sample.cpuCycles < 0) {
-                    throw new NumberFormatException("invalid CPUCycles");
-                }
-            } catch (Exception ex) {
-                throw new InvalidDataException("invalid CPUCycles", ex);
+            String rawCpuCycles = data.get("CPUCycles");
+            // CPUCycles is mandatory
+            assertNotBlank(rawCpuCycles, "CPUCycles");
+            sample.cpuCycles = Long.parseLong(rawCpuCycles);
+            if (sample.cpuCycles < 0) {
+                // CPUCycles must be a positive 64 bits integer
+                throw new NumberFormatException("invalid CPUCycles");
             }
-
-            try {
-                String rawSource = (String) data.get("source");
-                assertNotBlank(rawSource, "source");
-                sample.source = SampleSource.valueOf(rawSource);
-            } catch (Exception ex) {
-                throw new InvalidDataException("invalid source", ex);
-            }
-            return sample;
-        } catch (ClassCastException ex) {
-            throw new InvalidDataException("invalid API usage");
+        } catch (Exception ex) {
+            // CPUCycles must be a positive 64 bits integer
+            throw new InvalidDataException("invalid CPUCycles", ex);
         }
+
+        try {
+            String rawSource = data.get("source");
+            assertNotBlank(rawSource, "source");
+            // source is mandatory
+            sample.source = SampleSource.valueOf(rawSource);
+        } catch (Exception ex) {
+            // source must have a known value
+            throw new InvalidDataException("invalid source", ex);
+        }
+        return sample;
     }
 
     private static void assertNotBlank(String value, String name) throws InvalidDataException {
