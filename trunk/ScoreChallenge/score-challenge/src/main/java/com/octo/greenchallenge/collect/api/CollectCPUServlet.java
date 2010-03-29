@@ -1,8 +1,13 @@
 package com.octo.greenchallenge.collect.api;
 
+import com.octo.greenchallenge.collect.api.persistence.GAEServices;
+import com.octo.greenchallenge.collect.api.persistence.GAEServicesImpl;
+
+import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +20,7 @@ import static com.octo.greenchallenge.collect.api.StatusCode.*;
  */
 public class CollectCPUServlet extends javax.servlet.http.HttpServlet {
 
-    GAEServices service = new GAEServicesImpl();
+    GAEServices appEngine = new GAEServicesImpl();
 
     /**
      * <p>Handle POST HTTP request.</p>
@@ -62,7 +67,7 @@ public class CollectCPUServlet extends javax.servlet.http.HttpServlet {
         log("sample received: " + params);
         try {
             Sample sample = Sample.build(params);
-            service.recordData(sample);
+            recordData(sample);
             sendResponse(response, OK, 200);
         } catch (InvalidDataException ex) {
             getServletContext().log("Invalid data with params: " + params + ": " + ex.getMessage(), ex);
@@ -100,5 +105,16 @@ public class CollectCPUServlet extends javax.servlet.http.HttpServlet {
         response.getWriter().print(statusCode);
         response.getWriter().flush();
     }
+
+    private void recordData(Sample recordedSample) {
+        PersistenceManager pm = appEngine.getPersistenceManager();
+        try {
+            recordedSample.setTimestamp(new Date());
+            pm.makePersistent(recordedSample);
+        } finally {
+            pm.close();
+        }
+    }
+
 
 }
