@@ -27,7 +27,6 @@ public class DumpCPUServlet extends HttpServlet {
             response.sendError(403, "You must be signed as admin to do this");
         } else {
             List<Sample> allSamples = dumpAllRecordedSamples();
-            // TODO tests (sur appspot aussi) avec accents dans samples
             for (Sample s : allSamples) {
                 PrintWriter out = response.getWriter();
                 writeSample(s, out);
