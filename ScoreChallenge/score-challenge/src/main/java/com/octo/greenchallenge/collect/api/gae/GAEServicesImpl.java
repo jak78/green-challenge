@@ -1,4 +1,4 @@
-package com.octo.greenchallenge.collect.api.persistence;
+package com.octo.greenchallenge.collect.api.gae;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
