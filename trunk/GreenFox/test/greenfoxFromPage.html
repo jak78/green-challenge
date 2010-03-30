@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GreenFox tests</title>
+</head>
+<body>
+<pre>
+<script type="text/javascript">
+document.write("GreenFox started\n");
+greenfox.start();
+
+wait();
+
+var result = greenfox.stop();
+
+document.write("GreenFox measure =" + result);
+
+function wait() {
+	for (var i = 0; i < 100000000; i++) 
+	{
+		var j=i*4.2;
+	}
+}
+</script>
+</pre>
+</body>
+</html>
+
