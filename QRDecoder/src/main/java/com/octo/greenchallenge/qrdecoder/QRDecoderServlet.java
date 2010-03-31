@@ -31,7 +31,7 @@ public class QRDecoderServlet extends HttpServlet {
 	private static final String[] filenames = new String[]{"amazon","apache","apple","att","cisco","dell","ebay","facebook","google","hp","ibm","intel","linkedin","microsoft","mozilla","oracle","oreilly","redhat","techcrunch","wired"};
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+			throws IOException {		
 		resp.setContentType("text/plain");
 
 		String decodedString = "";
@@ -70,15 +70,38 @@ public class QRDecoderServlet extends HttpServlet {
 		}
 		
 		long cpuMegacyclesValue = qs.getCpuTimeInMegaCycles() - loopStart;
-		// challengerID à récupérer en parsant la requête ? http://<ID>.qr-decode.appspot.com/
-		String challengerID = "unk";
+		String challengerID = getChallengerID(req);
+		//TODO: gestion de la constante externe SERVER_APP ?
 		String source = "SERVER_APP";
-						
+		
 		postResults(challengerID, cpuMegacyclesValue, source);
 				
 		resp.getWriter().println(decodedString);
 	}
-
+	
+	/**
+	 * Extract the challenger ID from the requested URL.
+	 * For instance, "fakeID" will be extracted form the following URL:
+	 *     "http://fakeID.qr-decode.appspot.com/"
+	 */
+	public String getChallengerID(HttpServletRequest req){
+		int urlProtocolHeaderSize = 7; // length of "http://"
+		int dot = '.'; 
+		String url = req.getRequestURL().toString().substring(urlProtocolHeaderSize);
+		//TODO: refactorer la gestion du contexte localhost 
+		if(url.equals("localhost:8888/qrdecoder")){
+			url = "fake.qr-decode.appspot.com/";
+		}				
+		return url.substring(0, url.indexOf(dot));
+	}
+	
+	/**
+	 * 
+	 * @param filename
+	 * @param decoder
+	 * @return
+	 * @throws IOException
+	 */
 	public String processDecode(String filename, QRCodeDecoder decoder)
 			throws IOException {
 		RleImage image = new RleImage(filename);
@@ -87,6 +110,12 @@ public class QRDecoderServlet extends HttpServlet {
 		return decodedString;
 	}
 
+	/**
+	 * 
+	 * @param challengerID
+	 * @param cpuMegacyclesValue
+	 * @param source
+	 */
 	private void postResults(String challengerID, long cpuMegacyclesValue, String source){
         try {
         	String encoding = "UTF-8";
