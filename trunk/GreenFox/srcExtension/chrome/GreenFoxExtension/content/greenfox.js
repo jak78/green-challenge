@@ -128,21 +128,26 @@ var greenfoxController = {
 	},
 	
     onStart: function() {
-    	this.lastMeasure = '';
-    	this.setState('running');
-    	this.getSampler().startMeasure();
+    	this.lastMeasure = ''
+    	this.setState('running')
+    	this.getSampler().startMeasure()
     },
     
     onEnd: function() {
-    	var measure = this.getSampler().endMeasure();
-    	this.lastMeasure = measure;
-    	this.setState('sending_sample');
-    	var sampleOk = this.getCollect().postSample(measure);
+    	var measure = this.getSampler().endMeasure()
+    	this.lastMeasure = measure / 10 / 1000; // Convert thicks to ms
+    	this.setState('sending_sample')
+    	var sampleOk = this.getCollect().postSample(measure)
     	if( sampleOk ) {
-	    	this.setState('sample_sent');
+	    	this.setState('sample_sent')
 	    } else {
-	    	this.setState('fail');
+	    	this.setState('fail')
 	    }
+    },
+    onConfigure: function() {
+		try {
+			window.openDialog("chrome://greenfox/content/prefs.xul","","chrome, dialog, modal, resizable=no", {})
+    	} catch( e ) { handleError(e) }
     },
     noop: function() {
     	// Function that does nothing
@@ -174,7 +179,7 @@ var greenfoxController = {
 		// Update status bar measure display:
 		var m = this.lastMeasure;
 		if( m !== '' ) {
-			m = 'cpu='+m
+			m = 'cpu='+m+' ms'
 		}
 		document.getElementById("greenfox-status-lastmeasure").value = m;
 		

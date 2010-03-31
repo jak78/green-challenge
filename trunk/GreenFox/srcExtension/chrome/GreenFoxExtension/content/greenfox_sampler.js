@@ -56,7 +56,8 @@ var sampler = {
 		greenfox.start();
 	},
 	endMeasure: function() {
-		return greenfox.stop();
+		var thicks = greenfox.stop();
+		return thicks;
 	},
 }
 

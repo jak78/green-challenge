@@ -46,6 +46,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <label id="greenfox-status-label" value="addon not loaded!!!" />
     <label id="greenfox-status-lastmeasure" value="" />
     <button id="greenfox-status-button" label="Start" oncommand="greenfoxController.onToolbarClick()"/>
+    <button id="greenfox-status-button" label="Configure" oncommand="greenfoxController.onConfigure()"/>
   </statusbarpanel>
  </statusbar>
     

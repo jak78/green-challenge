@@ -2,7 +2,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>greenfox@octo.com</em:id>
         <em:name>GreenFox</em:name>
-        <em:version>0.3</em:version>
+        <em:version>0.4</em:version>
         <em:description>GreenFox, Green Challenge Firefox AddOn.</em:description>
         <em:creator>OCTO Technology</em:creator>
         <em:homepageURL>http://www.octo.com</em:homepageURL>
@@ -16,5 +16,11 @@
                 <em:maxVersion>3.6.*</em:maxVersion>
            </Description>
         </em:targetApplication>
-    <em:optionsURL>chrome://greenfox/content/prefs.xul</em:optionsURL><em:aboutURL/><em:iconURL/><em:updateURL/><em:updateKey/><em:hidden/></Description>
+		<em:optionsURL>chrome://greenfox/content/prefs.xul</em:optionsURL>
+		<em:aboutURL/>
+		<em:iconURL>chrome://greenfox/content/logo-greenfox.png</em:iconURL>
+		<em:updateURL/>
+		<em:updateKey/>
+		<em:hidden/>
+    </Description>
 </RDF>
