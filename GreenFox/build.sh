@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-mkdir -p build
 rm -fr build/*
+mkdir -p build
 cd srcExtension
 
 # refresh with latest DLL build
