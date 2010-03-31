@@ -70,9 +70,9 @@ public class QRDecoderServlet extends HttpServlet {
 		}
 		
 		long cpuMegacyclesValue = qs.getCpuTimeInMegaCycles() - loopStart;
-		String challengerID = "spr-GAE";
-		// Problème : source "GAE" non supportée ? 
-		String source = "GREEN_FOX";
+		// challengerID à récupérer en parsant la requête ? http://<ID>.qr-decode.appspot.com/
+		String challengerID = "unk";
+		String source = "SERVER_APP";
 						
 		postResults(challengerID, cpuMegacyclesValue, source);
 				
