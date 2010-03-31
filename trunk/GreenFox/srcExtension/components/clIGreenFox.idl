@@ -1,0 +1,9 @@
+#include "nsISupports.idl"
+
+[scriptable, uuid(03A6D0B4-22B9-11DF-B844-20D556D89593)]
+
+interface clIGreenFox : nsISupports
+{
+    void start();
+	double stop();
+};

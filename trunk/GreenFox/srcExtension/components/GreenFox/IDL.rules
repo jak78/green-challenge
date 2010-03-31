@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="IDL compiler rule"
+	Version="8,00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="IDL compile"
+			DisplayName="IDL compile"
+			CommandLine="cd $(InputDir) &#x0D;&#x0A;[$XpIDLBinPath]\xpidl.exe -m header  [AllOptions] $(InputFileName) &#x0D;&#x0A;[$XpIDLBinPath]\xpidl.exe -m typelib  [AllOptions] $(InputFileName) &#x0D;&#x0A;"
+			Outputs="$(InputName).h;$(InputName).xpt"
+			FileExtensions="*.idl"
+			ExecutionDescription="IDL compile"
+			SupportsFileBatching="true"
+			ShowOnlyRuleProperties="false"
+			>
+			<Properties>
+				<StringProperty
+					Name="XpIDLIncludePath"
+					DisplayName="Xp IDL Include Path"
+					PropertyPageName="XulSDK"
+					Switch="-I&quot;[value]&quot;"
+					Delimited="true"
+				/>
+				<StringProperty
+					Name="XpIDLBinPath"
+					DisplayName="XpIDL bin Path"
+					PropertyPageName="XulSDK"
+				/>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>

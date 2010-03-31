@@ -1,6 +1,19 @@
 #!/bin/sh
+
 mkdir -p build
 rm -fr build/*
 cd srcExtension
-zip -r ../build/greenfox.xpi * -x '*/.svn/*' -x '*~'
+
+# refresh with latest DLL build
+echo "Copying last DLL build (if exist) ..."
+dll="components/GreenFox/Release/GreenFox.dll"
+platform="WINNT_x86-msvc"
+if [[ -a $dll ]]; then 
+	cp -f $dll platform/$platform/components/
+fi
+
+# build XPI
+echo "Packaging XPI..."
+xpi_contents="chrome components/*.xpt defaults platform chrome.manifest install.rdf"
+zip -r ../build/greenfox.xpi $xpi_contents -x '*/.svn/*' -x '*~' 
 
