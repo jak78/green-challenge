@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.logging.Logger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -14,17 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sun.net.www.http.HttpClient;
-
 import jp.sourceforge.qrcode.QRCodeDecoder;
 import jp.sourceforge.qrcode.util.ContentConverter;
 
 import com.google.appengine.api.quota.QuotaService;
 import com.google.appengine.api.quota.QuotaServiceFactory;
-
-import com.google.appengine.api.urlfetch.HTTPMethod;
-import com.google.appengine.api.urlfetch.HTTPRequest;
-import com.google.appengine.api.urlfetch.HTTPResponse;
 
 @SuppressWarnings("serial")
 public class QRDecoderServlet extends HttpServlet {
