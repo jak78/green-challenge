@@ -17,3 +17,6 @@ echo "Packaging XPI..."
 xpi_contents="chrome components/*.xpt defaults platform chrome.manifest install.rdf"
 zip -r ../build/greenfox.xpi $xpi_contents -x '*/.svn/*' -x '*~' 
 
+# release
+cd ..
+cp build/greenfox.xpi releases/greenfox-latest.xpi 
