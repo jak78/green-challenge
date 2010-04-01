@@ -32,17 +32,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <?xml-stylesheet href="greenfox_prefs.css" type="text/css"?>
 <dialog id="GreenFoxSetupDialog"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	title="GreenFox settings" width="540" height="230"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	title="GreenFox settings" width="540" height="330"
 	ondialogaccept="return greenfoxPrefsMgr.dialogSave();" onload="greenfoxPrefsMgr.dialogInit();">
 	<script type="application/x-javascript" src="greenfox_prefs.js" />
 	<vbox flex="1" style="overflow: auto; padding: 7px;">
 		<label value="Your challenger ID:" control="greenfox-challengerID" class="gfLabel"/>
 		<textbox id="greenfox-challengerID" />
 		<description>Use your email address to identify you as a challenger.</description>
-		
-		<label value="Collect API URL:" control="greenfox-endpoint" class="gfLabel"/>
+				
+		<label value="Collection API URL:" control="greenfox-endpoint" class="gfLabel"/>
 		<textbox id="greenfox-endpoint" />
 		<description>Only change this if you are coding GreenFox, or if the collect server URL changed.</description>
+
+		<html:p/>
+				
+		<checkbox id="greenfox-collection-enabled" label="Send samples to Green Challenge scoring server"/>
 		
 		<spacer flex="1"/>
 		

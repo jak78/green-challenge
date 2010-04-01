@@ -28,52 +28,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 var greenfoxPrefsMgr = {
-	get: function(prefName) {
-		// Récupération de l'API des préférences sous forme d'objet JavaScript :
-		var oPrefs = Components.classes["@mozilla.org/preferences-service;1"]
-				.getService(Components.interfaces.nsIPrefService).getBranch("");
-				
-		// Récupération de la préférence.
-		return oPrefs.getCharPref("extensions.greenfox." + prefName);
+	getPrefs: function() {
+		return Components.classes["@mozilla.org/preferences-service;1"]
+				.getService(Components.interfaces.nsIPrefService).getBranch("extensions.greenfox.");
 	},
-	getDefault: function(prefName) {
-		// Récupération de l'API des préférences sous forme d'objet JavaScript :
-		var oPrefs = Components.classes["@mozilla.org/preferences-service;1"]
-				.getService(Components.interfaces.nsIPrefService).getDefaultBranch("");
-				
-		// Récupération de la préférence.
-		return oPrefs.getCharPref("extensions.greenfox." + prefName);
+	getDefaultPrefs: function() {
+		return Components.classes["@mozilla.org/preferences-service;1"]
+				.getService(Components.interfaces.nsIPrefService).getDefaultBranch("extensions.greenfox.");
 	},
 	/**
-	 * Chargement des préférences dans la boîte de dialogue.
+	 * Init dialog box with GreenFox preferences.
 	 */
 	dialogInit: function() {
 		try {
-			document.getElementById("greenfox-endpoint").value = this.get('endpoint');
-			document.getElementById("greenfox-challengerID").value = this.get('challengerID');
+			var prefs = this.getPrefs();
+			document.getElementById("greenfox-endpoint").value = prefs.getCharPref('endpoint');
+			document.getElementById("greenfox-challengerID").value = prefs.getCharPref('challengerID');
+			document.getElementById("greenfox-collection-enabled").checked = prefs.getBoolPref('collection.enabled');
 		} catch (e) {
 			alert("Failed to load settings.\n" + e);
 		}
 	},
 	/**
-	 * Enregistrement des préférences + vérif valeurs OK.
-	 * 
-	 * @return true si on doit fermer la boîte de dialogue, false sinon.
+	 * Check submitted values & set preferences.
+	 * @return true if values are OK
 	 */
 	dialogSave: function() {
 		try {
-			// Récup de l'API des préférences :
-			var oPrefs = Components.classes["@mozilla.org/preferences-service;1"]
-					.getService(Components.interfaces.nsIPrefService).getBranch("");
-					
+			var oPrefs = this.getPrefs();
+			
 			var challengerID = this.readValueFromDialog("greenfox-challengerID");
 			var endpointVal = this.readValueFromDialog("greenfox-endpoint");
+			var collectionEnabled = this.readCheckboxFromDialog("greenfox-collection-enabled");
 
 			if( this.dialogValidate( challengerID, endpointVal ) ) {
-				// Enregistrement de la préférence dans le profil Mozilla :
-				oPrefs.setCharPref("extensions.greenfox.endpoint", endpointVal);
-				oPrefs.setCharPref("extensions.greenfox.challengerID", challengerID);
-				// On peut fermer la boîte de dialogue :
+				oPrefs.setCharPref('endpoint', endpointVal)
+				oPrefs.setCharPref('challengerID', challengerID)
+				oPrefs.setBoolPref('collection.enabled', collectionEnabled)
 				return true;
 			} else {
 				return false;
@@ -84,17 +75,22 @@ var greenfoxPrefsMgr = {
 		}
 	},
 	readValueFromDialog: function(domId) {
-		// Récup de la valeur saisie par l'utilisateur :
+		// Get submitted value:
 		var value = document.getElementById(domId).value;
-		// Fait un trim :
+		// Trim spaces:
 		value = value.replace(/^\s+/g,'').replace(/\s+$/g,'');
 		return value;
 	},
+	readCheckboxFromDialog: function(domId) {
+		var value = document.getElementById(domId).checked;
+		return value;
+	},
 	/**
-	 * Validation des préférences dont les valeurs sont passées en paramètre.
-	 * Pour l'instant : 1 seule préférence.
-	 * @param endpointVal URL de l'endpoint
-	 * @return true si et seulement si valeurs de prefs OK
+	 * Validate submitted preferences.
+	 * @param challengerID challenger ID to validate
+	 * @param endpointVal endpoint URL to validate
+	 * 
+	 * @return true if all is OK
 	 */
 	dialogValidate: function(challengerID, endpointVal) {
 		var validate = function(value,regexp,what) {
@@ -108,21 +104,22 @@ var greenfoxPrefsMgr = {
 					return false;
 				}
 			} else {
-				// Longueur == 0
+				// lengthValue==0
 				return false;
 			}
 			return true;
 		};
-		// TODO validation d'email : un peu légère...
+		// TODO implement email validation
 		return validate(endpointVal,"^https?://([A-Za-z0-9\-\./]|:)+$","URL") /*&& validate(challengerID,"^.*@.*$","email")*/
 	},
 	/**
-	 * Retour aux réglages d'usine.
+	 * Revert to factory settings.
 	 */
 	dialogReset: function() {
-		// Affectation des valeurs par défaut des préférences aux champs du dialogue :
-		document.getElementById("greenfox-endpoint").value = this.getDefault("endpoint");
-		document.getElementById("greenfox-challengerID").value = this.getDefault("challengerID");
+		var defaults = this.getDefaultPrefs()
+		document.getElementById("greenfox-endpoint").value = defaults.getCharPref("endpoint");
+		document.getElementById("greenfox-challengerID").value = defaults.getCharPref("challengerID");
+		document.getElementById("greenfox-collection-enabled").checked = defaults.getBoolPref("collection.enabled");
 	},
 }
 
