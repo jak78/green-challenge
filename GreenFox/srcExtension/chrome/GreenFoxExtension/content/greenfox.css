@@ -19,6 +19,9 @@
 .greenfox-status-image-sending_sample {
    list-style-image: url("network.png");
 }
+.greenfox-status-image-sampled {
+   list-style-image: url("ok.png");
+}
 .greenfox-status-image-sample_sent {
    list-style-image: url("ok.png");
 }
