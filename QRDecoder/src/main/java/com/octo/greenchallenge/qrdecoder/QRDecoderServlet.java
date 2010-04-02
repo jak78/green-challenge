@@ -25,7 +25,7 @@ public class QRDecoderServlet extends HttpServlet {
 	private static final Logger log = Logger.getLogger(QRDecoderServlet.class
 			.getName());
 	
-	int decodeCycle= 10;
+	int decodeCycle= 100;
 	private static final String rootPath="WEB-INF/qrc/";
 	private static final String imageType=".qrc";
 	private static final String[] filenames = new String[]{"amazon","apache","apple","att","cisco","dell","ebay","facebook","google","hp","ibm","intel","linkedin","microsoft","mozilla","oracle","oreilly","redhat","techcrunch","wired"};
@@ -35,41 +35,50 @@ public class QRDecoderServlet extends HttpServlet {
 		resp.setContentType("text/plain");
 
 		String decodedString = "";
+		String decodeTemp = "";
 		QuotaService qs = QuotaServiceFactory.getQuotaService();
 		
 		// plusieurs executions afin de voir si les résultats sont reproductibles, (et pour faire 1 moyenne)
 		
+		// 1 décodage à vide
+		for(int k=0;k<filenames.length ;k++){
+			QRCodeDecoder decoder = new QRCodeDecoder();
+			decodeTemp = processDecode(rootPath+filenames[k]+imageType, decoder);
+		}
+		// démarrage mesure
 		long loopStart = qs.getCpuTimeInMegaCycles();
 		
 		for (int j = 0; j < decodeCycle; j++) {
 			long start = qs.getCpuTimeInMegaCycles();
 			//for (int i = 0; i < 100; i++) {
-			log.info("Start : "+start);
+			//log.info("Start : "+start);
 				QRCodeDecoder decoder = new QRCodeDecoder();
 				QRCodeDecoder.setCanvas(
 						new jp.sourceforge.qrcode.util.DebugCanvasAdapter(){
 							public  void println(String message){
 								//QRDecoderServlet.log.info("DebugCanvas: " +  message);
-								System.out.println(message);
+								// System.out.println(message);
 							};
 						}
 				);
 				//affichage des valeurs décodées à la dernière execution
 				for(int k=0;k<filenames.length ;k++){
+					decodeTemp = processDecode(rootPath+filenames[k]+imageType, decoder);
 					if (j==(decodeCycle-1)) {
-						decodedString += processDecode(rootPath+filenames[k]+imageType, decoder);
-						decodedString += "\\n";
+						decodedString += decodeTemp;
+						decodedString += "\n";
 					}
 				}
 			//}
 			long end = qs.getCpuTimeInMegaCycles();
-			log.info("End : "+end);
+			//log.info("End : "+end);
 			double cpuSeconds = qs.convertMegacyclesToCpuSeconds(end - start);
 			log.info("CPU en secondes : " + cpuSeconds
 					+ " / CPU en Megacycles : " + (end - start));							
 		}
 		
 		long cpuMegacyclesValue = qs.getCpuTimeInMegaCycles() - loopStart;
+		cpuMegacyclesValue = cpuMegacyclesValue/100;
 		String challengerID = getChallengerID(req);
 		//TODO: gestion de la constante externe SERVER_APP ?
 		String source = "SERVER_APP";
