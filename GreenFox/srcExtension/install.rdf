@@ -19,8 +19,6 @@
 		<em:optionsURL>chrome://greenfox/content/prefs.xul</em:optionsURL>
 		<em:aboutURL/>
 		<em:iconURL>chrome://greenfox/content/logo-greenfox.png</em:iconURL>
-		<em:updateURL/>
-		<em:updateKey/>
 		<em:hidden/>
     </Description>
 </RDF>
