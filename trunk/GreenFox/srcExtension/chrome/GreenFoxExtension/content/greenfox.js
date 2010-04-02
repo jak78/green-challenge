@@ -1,32 +1,3 @@
-/*
-GreenFox
-
-Copyright (c) 2010, OCTO Technology
-All rights reserved.
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of GreenFox nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY CONTRIBUTORS ``AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE CONTRIBUTORS BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 // Error handling:
 function handleError(e) {
 	window.alert('GreenFox error: \n' + e);
@@ -41,9 +12,21 @@ window.addEventListener("unload", function() { greenfoxController.destroy(); }, 
  */
 var greenfoxController = {
 
-	getSampler: function() { return sampler },
+	getSampler: function() {
+		if( this.prefs.getBoolPref('sampling.enabled') ) {
+			return sampler
+		} else {
+			return mockSampler
+		}
+	},
 	
-	getCollect: function() { return greenfoxCollect },
+	getCollect: function() { 
+		if( this.prefs.getBoolPref('collection.enabled') ) {
+			return greenfoxCollect
+		} else {
+			return mockCollect
+		}
+	},
 	
 	///////////////
 	// Lifecycle //    
@@ -51,8 +34,6 @@ var greenfoxController = {
 	
 	init: function() {
 		try {
-			this.getCollect().init();
-			var samplerOK = this.getSampler().init();
 			
 			// Get out prefs:
 			this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
@@ -62,6 +43,11 @@ var greenfoxController = {
 			// Listen to the prefs:
 			this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2)
 			this.prefs.addObserver("", this, false)
+			
+			// GreenFox setUp:
+			
+			this.getCollect().init();
+			var samplerOK = this.getSampler().init();
 
 			this.lastMeasure = '';
 			if( ! samplerOK ) {
@@ -136,12 +122,16 @@ var greenfoxController = {
     onEnd: function() {
     	var measure = this.getSampler().endMeasure()
     	this.lastMeasure = new Number(measure / 10 / 1000).toFixed(1); // Convert thicks to ms
-    	this.setState('sending_sample')
-    	var sampleOk = this.getCollect().postSample(measure)
-    	if( sampleOk ) {
-	    	this.setState('sample_sent')
-	    } else {
-	    	this.setState('fail')
+    	this.setState('sampled')
+
+		if( this.getCollect().willSendSamples() ) {
+			this.setState('sending_sample')
+			var sampleOk = this.getCollect().postSample(measure)
+			if( sampleOk ) {
+				this.setState('sample_sent')
+			} else {
+				this.setState('fail')
+			}
 	    }
     },
     onConfigure: function() {
@@ -156,6 +146,7 @@ var greenfoxController = {
   	states: {
   		ready: { label: 'ready', action: 'onStart' },
   		running: { label: 'sampling...', action: 'onEnd' },
+  		sampled: { label: 'sampled', action: 'onStart' },
   		sending_sample: { label: 'sending sample...', action: 'noop' },
   		sample_sent: { label: 'sample successfully sent', action: 'onStart' },
   		fail: { label: 'FAILURE!', action: 'onStart' },

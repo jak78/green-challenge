@@ -1,8 +1,9 @@
 #GreenFoxSetupDialog description {
 	font-style: italic;
-	font-size: 0.8em;
+	font-size: 0.9em;
 }
-#GreenFoxSetupDialog label.gfLabel {
-	font-weight: bold;
+#greenfoxHelpLink {
+	color: blue;
+	text-decoration: underline; 
 }
 
