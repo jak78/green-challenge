@@ -25,12 +25,4 @@
         <url-pattern>/api/dump/cpu</url-pattern>
     </servlet-mapping>
 
-    <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<url-pattern>/api/dump/*</url-pattern>-->
-        <!--</web-resource-collection>-->
-        <!--<auth-constraint>-->
-            <!--<role-name>admin</role-name>-->
-        <!--</auth-constraint>-->
-    <!--</security-constraint>-->
 </web-app>
