@@ -25,10 +25,10 @@ public class QRDecoderServlet extends HttpServlet {
 	private static final Logger log = Logger.getLogger(QRDecoderServlet.class
 			.getName());
 	
-	int decodeCycle= 100;
+	int decodeCycle= 1;
 	private static final String rootPath="WEB-INF/qrc/";
-	private static final String imageType=".qrc";
-	private static final String[] filenames = new String[]{"amazon","apache","apple","att","cisco","dell","ebay","facebook","google","hp","ibm","intel","linkedin","microsoft","mozilla","oracle","oreilly","redhat","techcrunch","wired"};
+	//private static final String imageType=".qrc";
+	private static final String[] filenames = new String[]{"amazon.qrc","apache.qrc","apple.qrc","att.qrc","cisco.qrc","dell.qrc","ebay.qrc","facebook.qrc","google.qrc","hp.qrc","ibm.qrc","intel.qrc","linkedin.qrc","microsoft.qrc","mozilla.qrc","oracle.qrc","oreilly.qrc","redhat.qrc","techcrunch.qrc","wired.qrc","ABL.vcf.qrc", "ACL.vcf.qrc", "ACO.vcf.qrc", "AFC.vcf.qrc", "AFE.vcf.qrc", "AFF.vcf.qrc", "AHU.vcf.qrc", "AMZ.vcf.qrc", "AND.vcf.qrc", "AVE.vcf.qrc", "AZO.vcf.qrc", "BCH.vcf.qrc", "BEG.vcf.qrc", "BHA.vcf.qrc", "BLA.vcf.qrc", "BMA.vcf.qrc", "BPA.vcf.qrc", "CBE.vcf.qrc", "CBL.vcf.qrc", "CDC.vcf.qrc", "CGH.vcf.qrc", "CLR.vcf.qrc", "CGU.vcf.qrc", "COT.vcf.qrc", "CPA.vcf.qrc", "CPI.vcf.qrc", "CPO.vcf.qrc", "CTH.vcf.qrc", "CTR.vcf.qrc", "DAL.vcf.qrc", "DAT.vcf.qrc", "DFR.vcf.qrc", "DHA.vcf.qrc", "DJO.vcf.qrc", "DOM.vcf.qrc", "DRO.vcf.qrc", "DZO.vcf.qrc", "EBE.vcf.qrc", "EBI.vcf.qrc", "ECH.vcf.qrc", "EDO.vcf.qrc", "EDR.vcf.qrc", "EDU.vcf.qrc", "EFA.vcf.qrc", "EGE.vcf.qrc", "EGN.vcf.qrc", "EPA.vcf.qrc", "ETH.vcf.qrc", "FCH.vcf.qrc", "FDA.vcf.qrc", "FFR.vcf.qrc", "FGA.vcf.qrc", "FJG.vcf.qrc", "FHI.vcf.qrc", "FPE.vcf.qrc", "FRO.vcf.qrc", "FSA.vcf.qrc", "FWA.vcf.qrc", "GDU.vcf.qrc", "GGU.vcf.qrc", "GIL.vcf.qrc", "GLZ.vcf.qrc", "GPL.vcf.qrc", "HLO.vcf.qrc", "HTR.vcf.qrc", "HVA.vcf.qrc", "IAN.vcf.qrc", "IGN.vcf.qrc", "IHE.vcf.qrc", "ISC.vcf.qrc", "JAS.vcf.qrc", "JBE.vcf.qrc", "JCA.vcf.qrc", "JFG.vcf.qrc", "JFH.vcf.qrc", "JGL.vcf.qrc", "JJA.vcf.qrc", "JLY.vcf.qrc", "JME.vcf.qrc", "JSC.vcf.qrc", "JVA.vcf.qrc", "JYR.vcf.qrc", "KBO.vcf.qrc", "KMA.vcf.qrc", "LAV.vcf.qrc", "LBA.vcf.qrc", "LBR.vcf.qrc", "LCI.vcf.qrc", "LRI.vcf.qrc", "MAC.vcf.qrc", "MAG.vcf.qrc", "MBA.vcf.qrc", "MBO.vcf.qrc", "MBE.vcf.qrc", "MDE.vcf.qrc", "MEL.vcf.qrc", "MGA.vcf.qrc", "MHI.vcf.qrc", "MLO.vcf.qrc", "MMD.vcf.qrc", "MLA.vcf.qrc", "MMO.vcf.qrc", "MPH.vcf.qrc", "MRO.vcf.qrc", "MWA.vcf.qrc", "NBA.vcf.qrc", "NFA.vcf.qrc", "NGR.vcf.qrc", "NHO.vcf.qrc", "NLE.vcf.qrc", "NRA.vcf.qrc", "NSL.vcf.qrc", "NSA.vcf.qrc", "OJA.vcf.qrc", "OLD.vcf.qrc", "OLM.vcf.qrc", "OLR.vcf.qrc", "OMA.vcf.qrc", "PKE.vcf.qrc", "PGU.vcf.qrc", "PPE.vcf.qrc", "PSO.vcf.qrc", "RCS.vcf.qrc", "REM.vcf.qrc", "RGA.vcf.qrc", "RGH.vcf.qrc", "RKO.vcf.qrc", "RPA.vcf.qrc", "RSA.vcf.qrc", "SDJ.vcf.qrc", "SGA.vcf.qrc", "SGR.vcf.qrc", "SFA.vcf.qrc", "SGU.vcf.qrc", "SMA.vcf.qrc", "SPR.vcf.qrc", "THL.vcf.qrc", "TLI.vcf.qrc", "TOM.vcf.qrc", "TVI.vcf.qrc", "VCO.vcf.qrc", "VDA.vcf.qrc", "VGU.vcf.qrc", "VVI.vcf.qrc", "WBO.vcf.qrc", "WMO.vcf.qrc", "YBE.vcf.qrc", "YMA.vcf.qrc", "YRA.vcf.qrc"};
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {		
@@ -43,7 +43,7 @@ public class QRDecoderServlet extends HttpServlet {
 		// 1 décodage à vide
 		for(int k=0;k<filenames.length ;k++){
 			QRCodeDecoder decoder = new QRCodeDecoder();
-			decodeTemp = processDecode(rootPath+filenames[k]+imageType, decoder);
+			decodeTemp = processDecode(rootPath+filenames[k], decoder);
 		}
 		// démarrage mesure
 		long loopStart = qs.getCpuTimeInMegaCycles();
@@ -63,7 +63,7 @@ public class QRDecoderServlet extends HttpServlet {
 				);
 				//affichage des valeurs décodées à la dernière execution
 				for(int k=0;k<filenames.length ;k++){
-					decodeTemp = processDecode(rootPath+filenames[k]+imageType, decoder);
+					decodeTemp = processDecode(rootPath+filenames[k], decoder);
 					if (j==(decodeCycle-1)) {
 						decodedString += decodeTemp;
 						decodedString += "\n";
@@ -78,7 +78,7 @@ public class QRDecoderServlet extends HttpServlet {
 		}
 		
 		long cpuMegacyclesValue = qs.getCpuTimeInMegaCycles() - loopStart;
-		cpuMegacyclesValue = cpuMegacyclesValue/100;
+		cpuMegacyclesValue = cpuMegacyclesValue/decodeCycle;
 		String challengerID = getChallengerID(req);
 		//TODO: gestion de la constante externe SERVER_APP ?
 		String source = "SERVER_APP";
