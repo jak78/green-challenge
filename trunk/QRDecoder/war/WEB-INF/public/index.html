@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Green Challenge USI 2010</title>
+    <link rel="stylesheet" href="/public/stylesheets/greenit.css">
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAADRCrEP7R4Li6ELxnVgt6bhSRc-3BrTqOVlCEHVoeLWMlUrgpxRTGFBaBwS6QXR7AUvFHlxak2ZFYIg" type="text/javascript"></script>
+	<script type="text/javascript" src="/public/javascripts/prototype.js"></script>
+  </head>
+
+  <body>
+    <h1>Bienvenue sur le Green Challenge</h1>
+	<div id="wrapper-greenit"></div>
+	    
+	<script type="text/javascript" src="/public/javascripts/greenit.js"></script>
+	<script type="text/javascript">
+	document.observe('dom:loaded', function(event){
+    	greenit.init('wrapper-greenit');
+	});
+	</script>
+  </body>
+</html>
