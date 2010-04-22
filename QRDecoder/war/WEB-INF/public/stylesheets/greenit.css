@@ -1,0 +1,41 @@
+#wrapper-greenit{
+	
+}	
+	#list-vcard{
+		margin: 0; padding: 0;
+		width: 200px;
+		height: 450px;
+		overflow-y: scroll;
+		/*background: rgb(229, 227, 223);*/
+
+		font-size: 11px;
+		font-family: Arial, Helvetica, sans-serif;
+		float: left;
+
+		list-style-position: inside;
+		list-style-type: none;
+	}
+	
+		#spinner{
+			text-align:center;
+			background: transparent url('../images/ajax-loader-spinner.gif') top center no-repeat;
+			height: 20px;
+		}
+		.vcard{
+			display: block;
+			clear: both;
+			margin: 3px;
+		}
+		.vcard:hover{
+			background-color: #f4f4f4;
+		}
+			.flashcode{float: left;}
+			.orga,.name,.addr{display: block;} 
+			.name{font-weight: bold;}
+			.orga{}
+			.addr{}
+	#container-gmap{
+		float: left;
+		width: 800px;
+		height: 450px;
+	}
