@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Dumps all sample records.
@@ -36,15 +38,18 @@ public class DumpCPUServlet extends HttpServlet {
 
     /**
      * Writes a sample in text format.
-     * @param s sample to write
+     *
+     * @param s   sample to write
      * @param out buffer to write into
      */
     private void writeSample(Sample s, PrintWriter out) {
-        out.printf("%s\t%d\t%s\t%tc%n", s.getChallengerID(), s.getCpuCycles(), s.getSource(), s.getTimestamp());
+        String formattedTS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(s.getTimestamp());
+        out.printf("%s\t%d\t%s\t%s%n", s.getChallengerID(), s.getCpuCycles(), s.getSource(), formattedTS);
     }
 
     /**
      * Get all recorded samples from database.
+     *
      * @return all samples
      */
     @SuppressWarnings("unchecked")
@@ -61,6 +66,7 @@ public class DumpCPUServlet extends HttpServlet {
 
     /**
      * Test if user is admin
+     *
      * @return true if current user is logged and is admin
      */
     private boolean isUserAdmin() {
