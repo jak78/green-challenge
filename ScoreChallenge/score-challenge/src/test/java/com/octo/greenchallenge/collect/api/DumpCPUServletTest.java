@@ -33,6 +33,7 @@ public class DumpCPUServletTest extends ServletTest {
      */
     @Before
     public void setUp() throws Exception {
+
         samples = new ArrayList<Sample>();
         Date date = new SimpleDateFormat("dd-MM-yyyy").parse("01-02-2007");
         samples.add(new Sample("chuck.norris@gmail.com", 1, date, SampleSource.SERVER_APP));
@@ -60,9 +61,9 @@ public class DumpCPUServletTest extends ServletTest {
 
         servlet.doGet(httpRequest, httpResponse);
 
-        assertEquals("chuck.norris@gmail.com\t1\tSERVER_APP\tThu Feb 01 00:00:00 CET 2007" + NL +
-                "chuck.norris@gmail.com\t2\tSERVER_APP\tThu Feb 01 00:00:00 CET 2007" + NL +
-                "chuck.norris@gmail.com\t3\tSERVER_APP\tThu Feb 01 00:00:00 CET 2007" + NL, output.toString());
+        assertEquals("chuck.norris@gmail.com\t1\tSERVER_APP\t2007-02-01 00:00:00" + NL +
+                "chuck.norris@gmail.com\t2\tSERVER_APP\t2007-02-01 00:00:00" + NL +
+                "chuck.norris@gmail.com\t3\tSERVER_APP\t2007-02-01 00:00:00" + NL, output.toString());
         verify(persistenceManager).close();
     }
 
