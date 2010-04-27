@@ -18,7 +18,8 @@
             <file path="$MODULE_DIR$/src" />
           </files-to-enhance>
           <run-enhancer-on-make>true</run-enhancer-on-make>
-          <sdk-home-path>$MODULE_DIR$/../../../java-apps/appengine-java-sdk</sdk-home-path>
+          <sdk-home-path>/Applications/java/appengine-java-sdk</sdk-home-path>
+          <email>julien.jakubowski@gmail.com</email>
         </configuration>
       </facet>
     </facet>
@@ -28,6 +29,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/ressources" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -47,11 +49,11 @@
     <orderEntry type="module-library">
       <library name="MyLibs">
         <CLASSES>
-          <root url="file:///media/data/projects/greenfox/score-challenge/lib" />
+          <root url="file://$MODULE_DIR$/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file:///media/data/projects/greenfox/score-challenge/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
   </component>
