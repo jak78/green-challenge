@@ -25,14 +25,39 @@ public class DumpCPUServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
-        if (!isUserAdmin()) {
-            response.sendError(403, "You must be signed as admin to do this");
+
+        UserService userService = appEngine.getUserService();
+        if (!userService.isUserLoggedIn()) {
+            response.sendError(403, "You must be signed to do this");
         } else {
-            List<Sample> allSamples = dumpAllRecordedSamples();
+            List<Sample> allSamples;
+            if( userService.isUserAdmin() ) {
+                // Application administrator can see all samples.
+                allSamples = dumpAllRecordedSamples();
+            } else {
+                // Users can see their samples.
+                String challengerID = userService.getCurrentUser().getEmail();
+                allSamples = dumpMyRecordedSamples(challengerID);
+            }
+            // Dumps samples to the browser:
             for (Sample s : allSamples) {
                 PrintWriter out = response.getWriter();
                 writeSample(s, out);
             }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<Sample> dumpMyRecordedSamples(String challengerID) {
+        PersistenceManager pm = appEngine.getPersistenceManager();
+        try {
+            Query q = pm.newQuery(Sample.class);
+            q.setFilter("challengerID == me");
+            q.declareParameters("String me");
+            List<Sample> resQ = (List<Sample>) q.execute(challengerID);
+            return (List<Sample>) pm.detachCopyAll(resQ);
+        } finally {
+            pm.close();
         }
     }
 
@@ -56,22 +81,12 @@ public class DumpCPUServlet extends HttpServlet {
     private List<Sample> dumpAllRecordedSamples() {
         PersistenceManager pm = appEngine.getPersistenceManager();
         try {
-            Query q = pm.newQuery("select from " + Sample.class.getName());
+            Query q = pm.newQuery(Sample.class);
             List<Sample> resQ = (List<Sample>) q.execute();
             return (List<Sample>) pm.detachCopyAll(resQ);
         } finally {
             pm.close();
         }
-    }
-
-    /**
-     * Test if user is admin
-     *
-     * @return true if current user is logged and is admin
-     */
-    private boolean isUserAdmin() {
-        UserService userService = appEngine.getUserService();
-        return userService.isUserLoggedIn() && userService.isUserAdmin();
     }
 
 }

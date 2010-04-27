@@ -78,6 +78,7 @@ public abstract class ServletTest {
 
         when(appEngine.getPersistenceManager()).thenReturn(persistenceManager);
         when(persistenceManager.newQuery(anyString())).thenReturn(query);
+        when(persistenceManager.newQuery(Sample.class)).thenReturn(query);
         when(appEngine.getUserService()).thenReturn(userService);
     }
 
