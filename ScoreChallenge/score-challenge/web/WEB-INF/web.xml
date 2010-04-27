@@ -5,24 +5,32 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
-    <display-name>score-challenge</display-name>
-    <servlet>
-        <description>Collect CPU time samples</description>
-        <display-name>CollectCPUServlet</display-name>
-        <servlet-name>CollectCPUServlet</servlet-name>
-        <servlet-class>com.octo.greenchallenge.collect.api.CollectCPUServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DumpCPUServlet</servlet-name>
-        <servlet-class>com.octo.greenchallenge.collect.api.DumpCPUServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CollectCPUServlet</servlet-name>
-        <url-pattern>/api/collect/cpu</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DumpCPUServlet</servlet-name>
-        <url-pattern>/api/dump/cpu</url-pattern>
-    </servlet-mapping>
+  <display-name>score-challenge</display-name>
+  <servlet>
+    <description>Collect CPU time samples</description>
+    <display-name>CollectCPUServlet</display-name>
+    <servlet-name>CollectCPUServlet</servlet-name>
+    <servlet-class>com.octo.greenchallenge.collect.api.CollectCPUServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DumpCPUServlet</servlet-name>
+    <servlet-class>com.octo.greenchallenge.collect.api.DumpCPUServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PurgeCPUServlet</servlet-name>
+    <servlet-class>com.octo.greenchallenge.collect.api.PurgeCPUServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CollectCPUServlet</servlet-name>
+    <url-pattern>/api/collect/cpu</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DumpCPUServlet</servlet-name>
+    <url-pattern>/api/dump/cpu</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PurgeCPUServlet</servlet-name>
+    <url-pattern>/api/purge/cpu</url-pattern>
+  </servlet-mapping>
 
 </web-app>
