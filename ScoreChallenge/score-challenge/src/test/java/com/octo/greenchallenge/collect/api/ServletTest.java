@@ -1,9 +1,10 @@
 package com.octo.greenchallenge.collect.api;
 
 import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.octo.greenchallenge.collect.api.gae.GAEServices;
+import com.google.appengine.tools.development.testing.LocalUserServiceTestConfig;
 import com.octo.greenchallenge.collect.api.gae.GAEServicesImpl;
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -45,21 +45,13 @@ public abstract class ServletTest {
 
     StringWriter output;
 
-    @Mock
-    GAEServices appEngine;
-
-    @Mock
-    PersistenceManager persistenceManagerMock;
-    @Mock
-    Query queryMock;
+    LocalServiceTestHelper localPersistenceServiceTestHelper =
+            new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+    protected LocalServiceTestHelper localUserServiceTestHelper =
+            new LocalServiceTestHelper(new LocalUserServiceTestConfig());
 
     PersistenceManager persistenceManager;
-
-    LocalServiceTestHelper localServiceTestHelper =
-            new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-
-    @Mock
-    UserService userServiceMock;
+    UserService userService;
 
     Map<String, String[]> httpParams;
 
@@ -85,15 +77,16 @@ public abstract class ServletTest {
         when(httpRequest.getParameterMap()).thenReturn(httpParams);
 
         // Google App Engine mocking:
-        localServiceTestHelper.setUp();
-        persistenceManager = new GAEServicesImpl().getPersistenceManager(); // FIXME
-        when(persistenceManagerMock.newQuery(anyString())).thenReturn(queryMock);
-        when(persistenceManagerMock.newQuery(Sample.class)).thenReturn(queryMock);
+        localPersistenceServiceTestHelper.setUp();
+        localUserServiceTestHelper.setUp();
+        persistenceManager = new GAEServicesImpl().getPersistenceManager();
+        userService = UserServiceFactory.getUserService();
     }
 
     @After
     public void commonTearDown() {
-        localServiceTestHelper.tearDown();
+        localPersistenceServiceTestHelper.tearDown();
+        localUserServiceTestHelper.tearDown();
     }
 
     void shouldLogSomething() {
