@@ -1,7 +1,11 @@
 package com.octo.greenchallenge.collect.api;
 
 import com.google.appengine.api.users.UserService;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.octo.greenchallenge.collect.api.gae.GAEServices;
+import com.octo.greenchallenge.collect.api.gae.GAEServicesImpl;
+import org.junit.After;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -45,11 +49,17 @@ public abstract class ServletTest {
     GAEServices appEngine;
 
     @Mock
+    PersistenceManager persistenceManagerMock;
+    @Mock
+    Query queryMock;
+
     PersistenceManager persistenceManager;
+
+    LocalServiceTestHelper localServiceTestHelper =
+            new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+
     @Mock
-    Query query;
-    @Mock
-    UserService userService;
+    UserService userServiceMock;
 
     Map<String, String[]> httpParams;
 
@@ -65,7 +75,7 @@ public abstract class ServletTest {
         MockitoAnnotations.initMocks(this);
 
         // Servlet container mocking:
-        
+
         output = new StringWriter();
 
         when(httpResponse.getWriter()).thenReturn(new PrintWriter(output));
@@ -75,11 +85,15 @@ public abstract class ServletTest {
         when(httpRequest.getParameterMap()).thenReturn(httpParams);
 
         // Google App Engine mocking:
+        localServiceTestHelper.setUp();
+        persistenceManager = new GAEServicesImpl().getPersistenceManager(); // FIXME
+        when(persistenceManagerMock.newQuery(anyString())).thenReturn(queryMock);
+        when(persistenceManagerMock.newQuery(Sample.class)).thenReturn(queryMock);
+    }
 
-        when(appEngine.getPersistenceManager()).thenReturn(persistenceManager);
-        when(persistenceManager.newQuery(anyString())).thenReturn(query);
-        when(persistenceManager.newQuery(Sample.class)).thenReturn(query);
-        when(appEngine.getUserService()).thenReturn(userService);
+    @After
+    public void commonTearDown() {
+        localServiceTestHelper.tearDown();
     }
 
     void shouldLogSomething() {

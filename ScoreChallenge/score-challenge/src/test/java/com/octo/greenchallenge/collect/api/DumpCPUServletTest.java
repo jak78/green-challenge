@@ -5,9 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -32,6 +30,9 @@ public class DumpCPUServletTest extends ServletTest {
     @Before
     public void setUp() throws Exception {
 
+        when(appEngine.getPersistenceManager()).thenReturn(persistenceManager);
+        when(appEngine.getUserService()).thenReturn(userServiceMock);
+        
         servlet = new DumpCPUServlet();
         servlet.appEngine = appEngine;
 
@@ -46,23 +47,24 @@ public class DumpCPUServletTest extends ServletTest {
     @Test
     public void dumpWhenIAmChuckNorris() throws Exception {
 
-        List<Sample> samples = new ArrayList<Sample>();
+        // Insert test data:
         Date date = new SimpleDateFormat("dd-MM-yyyy").parse("01-02-2007");
-        samples.add(new Sample("chuck.norris@gmail.com", 1, date, SampleSource.SERVER_APP));
-        samples.add(new Sample("chuck.norris@gmail.com", 2, date, SampleSource.SERVER_APP));
-        samples.add(new Sample("omer.simpson@gmail.com", 3, date, SampleSource.SERVER_APP));
+        persistenceManager.makePersistent(new Sample("chuck.norris@gmail.com", 1, date, SampleSource.SERVER_APP));
+        persistenceManager.makePersistent(new Sample("chuck.norris@gmail.com", 2, date, SampleSource.SERVER_APP));
+        persistenceManager.makePersistent(new Sample("omer.simpson@gmail.com", 3, date, SampleSource.SERVER_APP));
 
-        when(query.execute()).thenReturn(samples);
-        when(persistenceManager.detachCopyAll(anyCollectionOf(Sample.class))).thenReturn(samples);
-        when(userService.isUserLoggedIn()).thenReturn(true);
-        when(userService.isUserAdmin()).thenReturn(true);
+        // User is logged and admin:
+        when(userServiceMock.isUserLoggedIn()).thenReturn(true);
+        when(userServiceMock.isUserAdmin()).thenReturn(true);
+        // User name is Chuck Norris:
+        User curUser = new User("chuck.norris@gmail.com","gmail.com");
+        when(userServiceMock.getCurrentUser()).thenReturn(curUser);
 
         servlet.doGet(httpRequest, httpResponse);
 
         assertEquals("chuck.norris@gmail.com\t1\tSERVER_APP\t2007-02-01 00:00:00" + NL +
                 "chuck.norris@gmail.com\t2\tSERVER_APP\t2007-02-01 00:00:00" + NL +
                 "omer.simpson@gmail.com\t3\tSERVER_APP\t2007-02-01 00:00:00" + NL, output.toString());
-        verify(persistenceManager).close();
     }
 
     /**
@@ -73,21 +75,20 @@ public class DumpCPUServletTest extends ServletTest {
     @Test
     public void dumpWhenIAmOmerSimpson() throws Exception {
 
-        List<Sample> samples = new ArrayList<Sample>();
+        // Insert test data:
         Date date = new SimpleDateFormat("dd-MM-yyyy").parse("01-02-2007");
-        samples.add(new Sample("omer.simpson@gmail.com", 3, date, SampleSource.SERVER_APP));
+        persistenceManager.makePersistent(new Sample("omer.simpson@gmail.com", 3, date, SampleSource.SERVER_APP));
 
-        when(query.execute("omer.simpson@gmail.com")).thenReturn(samples);
-        when(persistenceManager.detachCopyAll(anyCollectionOf(Sample.class))).thenReturn(samples);
-        when(userService.isUserLoggedIn()).thenReturn(true);
-        when(userService.isUserAdmin()).thenReturn(false);
+        // User is logged but not admin:
+        when(userServiceMock.isUserLoggedIn()).thenReturn(true);
+        when(userServiceMock.isUserAdmin()).thenReturn(false);
+        // User name is Omer Simpson:
         User curUser = new User("omer.simpson@gmail.com","gmail.com");
-        when(userService.getCurrentUser()).thenReturn(curUser);
+        when(userServiceMock.getCurrentUser()).thenReturn(curUser);
 
         servlet.doGet(httpRequest, httpResponse);
 
         assertEquals("omer.simpson@gmail.com\t3\tSERVER_APP\t2007-02-01 00:00:00" + NL, output.toString());
-        verify(persistenceManager).close();
     }
 
     /**
@@ -98,8 +99,8 @@ public class DumpCPUServletTest extends ServletTest {
     @Test
     public void dumpWhenIAmNobody() throws Exception {
 
-        when(userService.isUserLoggedIn()).thenReturn(false);
-        when(userService.isUserAdmin()).thenReturn(false);
+        when(userServiceMock.isUserLoggedIn()).thenReturn(false);
+        when(userServiceMock.isUserAdmin()).thenReturn(false);
 
         servlet.doGet(httpRequest, httpResponse);
 
