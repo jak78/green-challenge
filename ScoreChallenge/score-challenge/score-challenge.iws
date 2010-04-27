@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="dc005ee4-0a12-4f12-9e71-b68fbfb2c3db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/score-challenge.iws" afterPath="$PROJECT_DIR$/score-challenge.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" />
-    </list>
+    <list default="true" readonly="true" id="dc005ee4-0a12-4f12-9e71-b68fbfb2c3db" name="Default" comment="" />
+    <ignored path="WEB-INF/appengine-generated/" />
     <ignored path="$USER_HOME_GRAILS$/" />
     <ignored path="$USER_HOME_GRIFFON$/" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -75,7 +72,7 @@
       <file leaf-file-name="DumpCPUServletTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="27" selection-start="515" selection-end="515" vertical-scroll-proportion="0.0">
+            <state line="100" column="56" selection-start="3144" selection-end="3144" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,8 +83,10 @@
       <file leaf-file-name="CollectCPUServletTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="0" selection-start="748" selection-end="748" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="177" column="0" selection-start="5357" selection-end="5357" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,7 +94,7 @@
       <file leaf-file-name="ServletTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="0" selection-start="1898" selection-end="1898" vertical-scroll-proportion="0.21621622">
+            <state line="82" column="58" selection-start="2733" selection-end="2733" vertical-scroll-proportion="2.2312925">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -126,8 +125,8 @@
         <option value="$PROJECT_DIR$/src/test/ressources/datanucleus-tests.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/Sample.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/gae/GAEServicesImpl.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" />
       </list>
     </option>
@@ -654,9 +653,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="830" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32816902" sideWeight="0.0" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32816902" sideWeight="0.0" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -667,9 +666,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2705036" sideWeight="0.2197183" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294964" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2705036" sideWeight="0.6661972" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2705036" sideWeight="0.6619718" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32394367" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="-28" y="453" width="1390" height="231" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32394367" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="-28" y="453" width="1390" height="231" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24964029" sideWeight="0.2212766" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -794,16 +793,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="748" selection-end="748" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="100" column="56" selection-start="3144" selection-end="3144" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="27" selection-start="515" selection-end="515" vertical-scroll-proportion="0.0">
+        <state line="177" column="0" selection-start="5357" selection-end="5357" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -812,7 +813,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="0" selection-start="1898" selection-end="1898" vertical-scroll-proportion="0.21621622">
+        <state line="82" column="58" selection-start="2733" selection-end="2733" vertical-scroll-proportion="2.2312925">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
