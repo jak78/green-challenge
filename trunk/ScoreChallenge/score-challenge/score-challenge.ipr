@@ -287,6 +287,15 @@
       <JAVADOC />
       <SOURCES />
     </library>
+    <library name="AppEngine tests">
+      <CLASSES>
+        <root url="jar:///Applications/java/appengine-java-sdk-1.3.3/lib/impl/appengine-api-labs.jar!/" />
+        <root url="jar:///Applications/java/appengine-java-sdk-1.3.3/lib/impl/appengine-api-stubs.jar!/" />
+        <root url="jar:///Applications/java/appengine-java-sdk-1.3.3/lib/testing/appengine-testing.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
   </component>
 </project>
 

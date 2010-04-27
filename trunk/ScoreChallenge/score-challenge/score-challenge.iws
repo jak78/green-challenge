@@ -2,18 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="dc005ee4-0a12-4f12-9e71-b68fbfb2c3db" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/lib" afterPath="$PROJECT_DIR$/tests-lib" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/score-challenge.iml" afterPath="$PROJECT_DIR$/score-challenge.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/ressources/datanucleus-tests.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/customLogo.gif" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/score-challenge.ipr" afterPath="$PROJECT_DIR$/score-challenge.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/ressources" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/DumpCPUServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/DumpCPUServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/Sample.java" afterPath="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/Sample.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/submit.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/index.jsp" afterPath="$PROJECT_DIR$/web/index.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/score-challenge.iws" afterPath="$PROJECT_DIR$/score-challenge.iws" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/mockito-all-1.8.3.jar" afterPath="$PROJECT_DIR$/tests-lib/mockito-all-1.8.3.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/score-challenge.ipr" afterPath="$PROJECT_DIR$/score-challenge.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" />
     </list>
     <ignored path="$USER_HOME_GRAILS$/" />
     <ignored path="$USER_HOME_GRIFFON$/" />
@@ -81,10 +77,21 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DumpCPUServletTest.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DumpCPUServletTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="44" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
+            <state line="55" column="36" selection-start="1626" selection-end="1626" vertical-scroll-proportion="0.3063063">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CollectCPUServletTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="0" selection-start="748" selection-end="748" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -93,77 +100,10 @@
       <file leaf-file-name="ServletTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="97" selection-start="2112" selection-end="2112" vertical-scroll-proportion="0.0">
+            <state line="91" column="0" selection-start="2729" selection-end="2729" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DumpCPUServlet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/DumpCPUServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CollectCPUServlet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/CollectCPUServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="0" selection-start="2089" selection-end="2089" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CollectCPUServletTest.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="174" column="0" selection-start="5222" selection-end="5222" vertical-scroll-proportion="0.5471698">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GAEServicesImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/gae/GAEServicesImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="76" selection-start="426" selection-end="490" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="datanucleus-tests.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/ressources/datanucleus-tests.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="34" selection-start="400" selection-end="400" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sample.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/Sample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="16" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jdoconfig.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/META-INF/jdoconfig.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="537" selection-end="764" vertical-scroll-proportion="0.0">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -178,22 +118,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/persistence/GAEServices.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/persistence/GAEServicesImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/CollectCPUServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/StatusCode.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/PurgeCPUServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/AdminServlet.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" />
         <option value="$PROJECT_DIR$/web/submit.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/DumpCPUServlet.java" />
         <option value="$PROJECT_DIR$/web/index.jsp" />
         <option value="$PROJECT_DIR$/src/test/ressources/META-INF/jdoconfig.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" />
         <option value="$PROJECT_DIR$/src/test/ressources/datanucleus-tests.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/Sample.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/gae/GAEServicesImpl.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java" />
       </list>
     </option>
   </component>
@@ -266,15 +206,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ressources" />
+              <option name="myItemId" value="tests-lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -352,20 +284,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="score-challenge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="score-challenge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -420,7 +338,7 @@
     <option name="referencePos" value="0" />
     <option name="showLabels" value="true" />
   </component>
-  <component name="RunManager" selected="Google AppEngine Dev Server.AppEngine Dev">
+  <component name="RunManager" selected="JUnit.All in score-challenge">
     <configuration default="false" name="CollectCPUServletTest.ok" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -779,7 +697,7 @@
     <option name="ENABLE_BACKGROUND_PROCESSES" value="true" />
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix date format problem with locales" />
+    <option name="LAST_COMMIT_MESSAGE" value="As a non-admin user, I can dump my samples" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -804,6 +722,7 @@
     <MESSAGE value="login" />
     <MESSAGE value="Fix date format" />
     <MESSAGE value="Fix date format problem with locales" />
+    <MESSAGE value="As a non-admin user, I can dump my samples" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -813,21 +732,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/lib/mockito-all-1.8.3.jar!/org/mockito/Mock.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="25" selection-start="343" selection-end="343" vertical-scroll-proportion="0.2074074" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/mockito-all-1.8.3.jar!/org/mockito/Mockito.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="632" column="13" selection-start="26723" selection-end="26723" vertical-scroll-proportion="0.33333334" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/mockito-all-1.8.3.jar!/org/mockito/Mockito.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="70" selection-start="593" selection-end="593" vertical-scroll-proportion="0.25714287" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/customLogo.gif">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -847,30 +751,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/CollectCPUServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="44" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
+        <state line="64" column="0" selection-start="2089" selection-end="2089" vertical-scroll-proportion="0.69463867">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/gae/GAEServicesImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/Sample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="76" selection-start="426" selection-end="490" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="19" column="16" selection-start="491" selection-end="491" vertical-scroll-proportion="0.45945945">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/hsqldb.jar!/org/hsqldb/BaseMemoryNode.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/DumpCPUServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="22" selection-start="157" selection-end="157" vertical-scroll-proportion="0.12">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="97" selection-start="2112" selection-end="2112" vertical-scroll-proportion="0.0">
+        <state line="84" column="0" selection-start="2991" selection-end="2991" vertical-scroll-proportion="0.6216216">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -879,47 +778,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/META-INF/jdoconfig.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="537" selection-end="764" vertical-scroll-proportion="0.0">
+        <state line="5" column="60" selection-start="275" selection-end="296" vertical-scroll-proportion="0.13513513">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/ressources/datanucleus-tests.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/gae/GAEServices.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="34" selection-start="400" selection-end="400" vertical-scroll-proportion="0.0">
+        <state line="9" column="17" selection-start="251" selection-end="251" vertical-scroll-proportion="0.1891892">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/DumpCPUServlet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/gae/GAEServicesImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0">
+        <state line="13" column="11" selection-start="353" selection-end="360" vertical-scroll-proportion="0.21621622">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/ServletTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="91" column="0" selection-start="2729" selection-end="2729" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/Sample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="16" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/octo/greenchallenge/collect/api/CollectCPUServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="0" selection-start="2089" selection-end="2089" vertical-scroll-proportion="0.0">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/CollectCPUServletTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="174" column="0" selection-start="5222" selection-end="5222" vertical-scroll-proportion="0.5471698">
+        <state line="31" column="0" selection-start="748" selection-end="748" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/octo/greenchallenge/collect/api/DumpCPUServletTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="36" selection-start="1626" selection-end="1626" vertical-scroll-proportion="0.3063063">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
