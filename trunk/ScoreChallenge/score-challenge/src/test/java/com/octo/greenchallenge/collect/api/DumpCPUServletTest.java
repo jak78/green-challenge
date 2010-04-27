@@ -1,6 +1,5 @@
 package com.octo.greenchallenge.collect.api;
 
-import com.google.appengine.api.users.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,6 +21,9 @@ public class DumpCPUServletTest extends ServletTest {
      */
     DumpCPUServlet servlet;
 
+    Date date;
+
+
     /**
      * Mocks, servlet and test data setup.
      *
@@ -30,13 +32,11 @@ public class DumpCPUServletTest extends ServletTest {
     @Before
     public void setUp() throws Exception {
 
-        when(appEngine.getPersistenceManager()).thenReturn(persistenceManager);
-        when(appEngine.getUserService()).thenReturn(userServiceMock);
-        
         servlet = new DumpCPUServlet();
-        servlet.appEngine = appEngine;
 
         servlet.init(svConfig);
+
+        date = new SimpleDateFormat("dd-MM-yyyy").parse("01-02-2007");
     }
 
     /**
@@ -48,17 +48,16 @@ public class DumpCPUServletTest extends ServletTest {
     public void dumpWhenIAmChuckNorris() throws Exception {
 
         // Insert test data:
-        Date date = new SimpleDateFormat("dd-MM-yyyy").parse("01-02-2007");
         persistenceManager.makePersistent(new Sample("chuck.norris@gmail.com", 1, date, SampleSource.SERVER_APP));
         persistenceManager.makePersistent(new Sample("chuck.norris@gmail.com", 2, date, SampleSource.SERVER_APP));
         persistenceManager.makePersistent(new Sample("omer.simpson@gmail.com", 3, date, SampleSource.SERVER_APP));
 
         // User is logged and admin:
-        when(userServiceMock.isUserLoggedIn()).thenReturn(true);
-        when(userServiceMock.isUserAdmin()).thenReturn(true);
+        localUserServiceTestHelper.setEnvIsLoggedIn(true);
+        localUserServiceTestHelper.setEnvIsAdmin(true);
         // User name is Chuck Norris:
-        User curUser = new User("chuck.norris@gmail.com","gmail.com");
-        when(userServiceMock.getCurrentUser()).thenReturn(curUser);
+        localUserServiceTestHelper.setEnvAuthDomain("gmail.com");
+        localUserServiceTestHelper.setEnvEmail("chuck.norris@gmail.com");
 
         servlet.doGet(httpRequest, httpResponse);
 
@@ -76,15 +75,14 @@ public class DumpCPUServletTest extends ServletTest {
     public void dumpWhenIAmOmerSimpson() throws Exception {
 
         // Insert test data:
-        Date date = new SimpleDateFormat("dd-MM-yyyy").parse("01-02-2007");
         persistenceManager.makePersistent(new Sample("omer.simpson@gmail.com", 3, date, SampleSource.SERVER_APP));
 
         // User is logged but not admin:
-        when(userServiceMock.isUserLoggedIn()).thenReturn(true);
-        when(userServiceMock.isUserAdmin()).thenReturn(false);
+        localUserServiceTestHelper.setEnvIsLoggedIn(true);
+        localUserServiceTestHelper.setEnvIsAdmin(false);
         // User name is Omer Simpson:
-        User curUser = new User("omer.simpson@gmail.com","gmail.com");
-        when(userServiceMock.getCurrentUser()).thenReturn(curUser);
+        localUserServiceTestHelper.setEnvAuthDomain("gmail.com");
+        localUserServiceTestHelper.setEnvEmail("omer.simpson@gmail.com");
 
         servlet.doGet(httpRequest, httpResponse);
 
@@ -99,8 +97,8 @@ public class DumpCPUServletTest extends ServletTest {
     @Test
     public void dumpWhenIAmNobody() throws Exception {
 
-        when(userServiceMock.isUserLoggedIn()).thenReturn(false);
-        when(userServiceMock.isUserAdmin()).thenReturn(false);
+        localUserServiceTestHelper.setEnvIsLoggedIn(false);
+        localUserServiceTestHelper.setEnvIsAdmin(false);
 
         servlet.doGet(httpRequest, httpResponse);
 

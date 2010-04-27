@@ -1,11 +1,15 @@
 package com.octo.greenchallenge.collect.api;
 
+import com.octo.greenchallenge.collect.api.gae.GAEServices;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.jdo.PersistenceManager;
 import java.util.Date;
+import java.util.List;
 
 import static com.octo.greenchallenge.collect.api.SampleSource.GREEN_FOX;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 /**
@@ -27,12 +31,8 @@ public class CollectCPUServletTest extends ServletTest {
     @Before
     public void setUp() throws Exception {
 
-        when(appEngine.getPersistenceManager()).thenReturn(persistenceManagerMock);
-        when(appEngine.getUserService()).thenReturn(userServiceMock);
-        
         servlet = new CollectCPUServlet();
 
-        servlet.appEngine = appEngine;
         servlet.init(svConfig);
 
         httpParams.put("challengerID", new String[]{"chuck.norris@gmail.com"});
@@ -49,7 +49,7 @@ public class CollectCPUServletTest extends ServletTest {
     public void ok() throws Exception {
         servlet.doPost(httpRequest, httpResponse);
         httpResponseShouldBe(200, "OK");
-        shouldRecordSample(new Sample("chuck.norris@gmail.com", 42, new Date(), GREEN_FOX));
+        shouldRecordOneSample(new Sample("chuck.norris@gmail.com", 42, new Date(), GREEN_FOX));
     }
 
     /**
@@ -165,9 +165,16 @@ public class CollectCPUServletTest extends ServletTest {
      */
     @Test
     public void technicalFailure() throws Exception {
+
+        // Simulates that persistence manager throw an exception:
         Throwable err = new NullPointerException();
+        servlet.appEngine = mock(GAEServices.class);
+        PersistenceManager persistenceManagerMock = mock(PersistenceManager.class);
+        when(servlet.appEngine.getPersistenceManager()).thenReturn(persistenceManagerMock);
         doThrow(err).when(persistenceManagerMock).makePersistent((Sample) any());
+
         servlet.doPost(httpRequest, httpResponse);
+
         httpResponseShouldBe(500, "TECHNICAL_FAILURE");
         shouldLog(err);
         verify(persistenceManagerMock).makePersistent((Sample) any());
@@ -175,14 +182,14 @@ public class CollectCPUServletTest extends ServletTest {
         verifyNoMoreInteractions(persistenceManagerMock);
     }
 
-    void shouldRecordSample(Sample sample) {
-        verify(persistenceManagerMock, times(1)).makePersistent(sample);
-        verify(persistenceManagerMock).close();
-        verifyNoMoreInteractions(persistenceManagerMock);
+    void shouldRecordOneSample(Sample sample) {
+        List<Sample> samples = (List<Sample>)persistenceManager.newQuery(Sample.class).execute();
+        assertEquals(1,samples.size());
     }
 
     void shouldNotRecordAnySample() {
-        verifyZeroInteractions(persistenceManagerMock);
+        List<Sample> samples = (List<Sample>)persistenceManager.newQuery(Sample.class).execute();
+        assertEquals(0,samples.size());
     }
 
 }
