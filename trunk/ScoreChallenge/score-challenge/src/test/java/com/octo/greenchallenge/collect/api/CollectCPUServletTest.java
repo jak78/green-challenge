@@ -26,6 +26,10 @@ public class CollectCPUServletTest extends ServletTest {
      */
     @Before
     public void setUp() throws Exception {
+
+        when(appEngine.getPersistenceManager()).thenReturn(persistenceManagerMock);
+        when(appEngine.getUserService()).thenReturn(userServiceMock);
+        
         servlet = new CollectCPUServlet();
 
         servlet.appEngine = appEngine;
@@ -162,23 +166,23 @@ public class CollectCPUServletTest extends ServletTest {
     @Test
     public void technicalFailure() throws Exception {
         Throwable err = new NullPointerException();
-        doThrow(err).when(persistenceManager).makePersistent((Sample) any());
+        doThrow(err).when(persistenceManagerMock).makePersistent((Sample) any());
         servlet.doPost(httpRequest, httpResponse);
         httpResponseShouldBe(500, "TECHNICAL_FAILURE");
         shouldLog(err);
-        verify(persistenceManager).makePersistent((Sample) any());
-        verify(persistenceManager).close();
-        verifyNoMoreInteractions(persistenceManager);
+        verify(persistenceManagerMock).makePersistent((Sample) any());
+        verify(persistenceManagerMock).close();
+        verifyNoMoreInteractions(persistenceManagerMock);
     }
 
     void shouldRecordSample(Sample sample) {
-        verify(persistenceManager, times(1)).makePersistent(sample);
-        verify(persistenceManager).close();
-        verifyNoMoreInteractions(persistenceManager);
+        verify(persistenceManagerMock, times(1)).makePersistent(sample);
+        verify(persistenceManagerMock).close();
+        verifyNoMoreInteractions(persistenceManagerMock);
     }
 
     void shouldNotRecordAnySample() {
-        verifyZeroInteractions(persistenceManager);
+        verifyZeroInteractions(persistenceManagerMock);
     }
 
 }
