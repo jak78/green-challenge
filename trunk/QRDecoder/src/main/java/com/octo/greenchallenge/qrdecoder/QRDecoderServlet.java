@@ -137,7 +137,7 @@ public class QRDecoderServlet extends HttpServlet {
         	
         	log.info("TRYING POST: challengerID=" + challengerID +" ; CPUCycles=" + cpuMegacycles+" ; source=" + source);
         	
-            URL url = new URL("http://score-challenge.appspot.com/api/collect/cpu");
+            URL url = new URL("http://scorechallenge.octo.com/api/collect/cpu");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
