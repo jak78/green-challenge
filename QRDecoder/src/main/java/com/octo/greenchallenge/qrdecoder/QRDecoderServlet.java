@@ -1,23 +1,21 @@
-﻿package com.octo.greenchallenge.qrdecoder;
+package com.octo.greenchallenge.qrdecoder;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.logging.Logger;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import com.google.appengine.api.quota.QuotaService;
+import com.google.appengine.api.quota.QuotaServiceFactory;
+import jp.sourceforge.qrcode.QRCodeDecoder;
+import jp.sourceforge.qrcode.util.ContentConverter;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import jp.sourceforge.qrcode.QRCodeDecoder;
-import jp.sourceforge.qrcode.util.ContentConverter;
-
-import com.google.appengine.api.quota.QuotaService;
-import com.google.appengine.api.quota.QuotaServiceFactory;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
 public class QRDecoderServlet extends HttpServlet {
@@ -40,17 +38,17 @@ public class QRDecoderServlet extends HttpServlet {
 		String decodedString = "";
 		String decodeTemp = "";
 		QuotaService qs = QuotaServiceFactory.getQuotaService();
-		
+
 		// plusieurs executions afin de voir si les résultats sont reproductibles, (et pour faire 1 moyenne)
-		
+
 		// 1 décodage à vide
-		for(int k=0;k<filenames.length ;k++){
-			QRCodeDecoder decoder = new QRCodeDecoder();
-			decodeTemp = processDecode(rootPath+filenames[k], decoder);
-		}
+        for (String filename : filenames) {
+            QRCodeDecoder decoder = new QRCodeDecoder();
+            decodeTemp = processDecode(rootPath + filename, decoder);
+        }
 		// démarrage mesure
 		long loopStart = qs.getCpuTimeInMegaCycles();
-		
+
 		for (int j = 0; j < decodeCycle; j++) {
 			long start = qs.getCpuTimeInMegaCycles();
 			//for (int i = 0; i < 100; i++) {
@@ -61,7 +59,7 @@ public class QRDecoderServlet extends HttpServlet {
 							public  void println(String message){
 								//QRDecoderServlet.log.info("DebugCanvas: " +  message);
 								// System.out.println(message);
-							};
+							}
 						}
 				);
 				//affichage des valeurs décodées à la dernière execution
@@ -79,15 +77,15 @@ public class QRDecoderServlet extends HttpServlet {
 			log.info("CPU en secondes : " + cpuSeconds
 					+ " / CPU en Megacycles : " + (end - start));							
 		}
-		
+
+        // Post sample to collect server:
 		long cpuMegacyclesValue = qs.getCpuTimeInMegaCycles() - loopStart;
 		cpuMegacyclesValue = cpuMegacyclesValue/decodeCycle;
 		String challengerID = getChallengerID(req);
-		//TODO: gestion de la constante externe SERVER_APP ?
 		String source = "SERVER_APP";
-		
 		postResults(challengerID, cpuMegacyclesValue, source);
-				
+
+        // Send decoded string to browser:
 		resp.getWriter().println(decodedString);
 	}
 	
@@ -95,6 +93,8 @@ public class QRDecoderServlet extends HttpServlet {
 	 * Extract the challenger ID from the requested URL.
 	 * For instance, "fakeID" will be extracted form the following URL:
 	 *     "http://fakeID.qr-decode.appspot.com/"
+     * @param req http request
+     * @return challenger ID
 	 */
 	public String getChallengerID(HttpServletRequest req){
 		int urlProtocolHeaderSize = 7; // length of "http://"
@@ -108,13 +108,13 @@ public class QRDecoderServlet extends HttpServlet {
 	}
 	
 	/**
-	 * 
-	 * @param filename
-	 * @param decoder
-	 * @return
-	 * @throws IOException
+	 * Decode file.
+	 * @param filename name of the file to decode
+	 * @param decoder decoder instance
+	 * @return decoded string
+	 * @throws IOException I/O problem
 	 */
-	public String processDecode(String filename, QRCodeDecoder decoder)
+	protected String processDecode(String filename, QRCodeDecoder decoder)
 			throws IOException {
 		RleImage image = new RleImage(filename);
 		String decodedString = new String(decoder.decode(image));
@@ -123,10 +123,10 @@ public class QRDecoderServlet extends HttpServlet {
 	}
 
 	/**
-	 * 
-	 * @param challengerID
-	 * @param cpuMegacyclesValue
-	 * @param source
+	 * Post sample to collect server.
+	 * @param challengerID challenger ID
+	 * @param cpuMegacyclesValue CPU mega cycles
+	 * @param source source (server_app)
 	 */
 	private void postResults(String challengerID, long cpuMegacyclesValue, String source){
         try {
