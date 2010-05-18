@@ -81,7 +81,7 @@ public class QRDecoderServlet extends HttpServlet {
         // Post sample to collect server:
 		long cpuMegacyclesValue = qs.getCpuTimeInMegaCycles() - loopStart;
 		cpuMegacyclesValue = cpuMegacyclesValue/decodeCycle;
-		String challengerID = getChallengerID(req);
+		String challengerID = getChallengerID(req.getRequestURL().toString());
 		String source = "SERVER_APP";
 		postResults(challengerID, cpuMegacyclesValue, source);
 
@@ -93,18 +93,19 @@ public class QRDecoderServlet extends HttpServlet {
 	 * Extract the challenger ID from the requested URL.
 	 * For instance, "fakeID" will be extracted form the following URL:
 	 *     "http://fakeID.qr-decode.appspot.com/"
-     * @param req http request
+     * @param requestURL http request URL
      * @return challenger ID
 	 */
-	public String getChallengerID(HttpServletRequest req){
+	public String getChallengerID(String requestURL){
 		int urlProtocolHeaderSize = 7; // length of "http://"
 		int dot = '.'; 
-		String url = req.getRequestURL().toString().substring(urlProtocolHeaderSize);
+		String url = requestURL.substring(urlProtocolHeaderSize);
 		//TODO: refactorer la gestion du contexte localhost 
 		if(url.equals("localhost:8888/qrdecoder")){
-			url = "fake.qr-decode.appspot.com/";
-		}				
-		return url.substring(0, url.indexOf(dot));
+			return "fake@gmail.com";
+		} else {
+            return url.substring(10, url.indexOf(dot)) + "@gmail.com";
+        }
 	}
 	
 	/**
