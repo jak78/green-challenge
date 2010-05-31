@@ -9,7 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 import static com.octo.greenchallenge.collect.api.SampleSource.GREEN_FOX;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 /**
@@ -184,12 +185,12 @@ public class CollectCPUServletTest extends ServletTest {
 
     void shouldRecordOneSample(Sample sample) {
         List<Sample> samples = (List<Sample>)persistenceManager.newQuery(Sample.class).execute();
-        assertEquals(1,samples.size());
+        assertThat(samples.size(),equalTo(1));
     }
 
     void shouldNotRecordAnySample() {
         List<Sample> samples = (List<Sample>)persistenceManager.newQuery(Sample.class).execute();
-        assertEquals(0,samples.size());
+        assertThat(samples.size(),equalTo(0));
     }
 
 }

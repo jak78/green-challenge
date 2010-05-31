@@ -10,7 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
@@ -86,7 +87,7 @@ public class PurgeCPUServletTest extends ServletTest {
 
         // Should get an error:
         verify(httpResponse, atLeastOnce()).sendError(eq(403), anyString());
-        assertEquals("", output.toString());
+        assertThat(output.toString(), equalTo(""));
 
         // No sample should have been purged:
         shouldRemainSamples(3);
@@ -94,12 +95,12 @@ public class PurgeCPUServletTest extends ServletTest {
 
     private void noSampleShouldRemain() {
         List<Sample> samples = (List<Sample>) persistenceManager.newQuery(Sample.class).execute();
-        assertEquals("no sample should remain", 0, samples.size());
+        assertThat("no sample should remain", samples.size(), equalTo(0));
     }
 
     private void shouldRemainSamples(int nb) {
         List<Sample> samples = (List<Sample>) persistenceManager.newQuery(Sample.class).execute();
-        assertEquals("remain samples", nb, samples.size());
+        assertThat("remain samples", samples.size(), equalTo(nb));
     }
 
 
