@@ -6,7 +6,8 @@ import org.junit.Test;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 /**
@@ -61,9 +62,9 @@ public class DumpCPUServletTest extends ServletTest {
 
         servlet.doGet(httpRequest, httpResponse);
 
-        assertEquals("chuck.norris@gmail.com\t1\tSERVER_APP\t2007-02-01 00:00:00" + NL +
+        assertThat(output.toString(), equalTo("chuck.norris@gmail.com\t1\tSERVER_APP\t2007-02-01 00:00:00" + NL +
                 "chuck.norris@gmail.com\t2\tSERVER_APP\t2007-02-01 00:00:00" + NL +
-                "omer.simpson@gmail.com\t3\tSERVER_APP\t2007-02-01 00:00:00" + NL, output.toString());
+                "omer.simpson@gmail.com\t3\tSERVER_APP\t2007-02-01 00:00:00" + NL));
     }
 
     /**
@@ -86,7 +87,7 @@ public class DumpCPUServletTest extends ServletTest {
 
         servlet.doGet(httpRequest, httpResponse);
 
-        assertEquals("omer.simpson@gmail.com\t3\tSERVER_APP\t2007-02-01 00:00:00" + NL, output.toString());
+        assertThat(output.toString(), equalTo("omer.simpson@gmail.com\t3\tSERVER_APP\t2007-02-01 00:00:00" + NL));
     }
 
     /**
@@ -103,6 +104,6 @@ public class DumpCPUServletTest extends ServletTest {
         servlet.doGet(httpRequest, httpResponse);
 
         verify(httpResponse, atLeastOnce()).sendError(eq(403), anyString());
-        assertEquals("", output.toString());
+        assertThat(output.toString(),equalTo(""));
     }
 }

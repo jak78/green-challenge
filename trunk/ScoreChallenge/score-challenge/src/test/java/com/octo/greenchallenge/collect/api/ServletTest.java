@@ -23,7 +23,8 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -99,7 +100,7 @@ public abstract class ServletTest {
 
     void httpResponseShouldBe(int expectedHttpStatus, String expectedResponseText) {
         // Check text response :
-        assertEquals("response", expectedResponseText, output.toString());
+        assertThat("response", output.toString(), equalTo(expectedResponseText));
 
         // API should send the right HTTP status code :
         verify(httpResponse, atLeastOnce()).setStatus(expectedHttpStatus);
